@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>FastKeys Registro</title>
+    <!-- jQuery first -->
+    <script type="text/javascript" src="./assets/js/jquery.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="./assets/bootstrap/dist/css/bootstrap.min.css" />
+    <script type="text/javascript" src="./assets/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- script js -->
+    <script type="text/javascript" src="./assets/js/script.js"></script>
+
+    <!-- Font Awesome 5+ -->
+    <script src="./node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./assets/css/logIn.css"/>
+  </head>
+  <body>
+    <div class="container">
+
+      <div class="jumbotron">
+        <h2>Log In</h2>
+
+        <form class="formLogIn" action="" method="post">
+          <div class="inputEmail">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fas fa-at"></i></span>
+              <input id="email" type="email" class="form-control" name="email" placeholder="Email" required>
+            </div>
+          </div>
+
+          <div class="inputPassword">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+              <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+            </div>
+          </div>
+            <button type="submit" class="btn btn-success" value="login">Entrar</button>
+            <div class="links">
+              <a href="./registro.html">Registrate!</a>   <a href="">¿Has olvidado la contraseña?</a>
+            </div>
+        </form>
+      </div>
+    </div>
+
+  </body>
+</html>

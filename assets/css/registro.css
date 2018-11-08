@@ -1,0 +1,52 @@
+.jumbotron{
+  width: 50%;
+  margin-top: 15%;
+  margin-left: 25%;
+  margin-right: 100px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 5px solid rgb(0, 0, 0);
+}
+
+.jumbotron>h2{
+  text-align: center;
+  margin-bottom: 50px;
+}
+.jumbotron>form>button{
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 5%;
+  text-decoration:none;
+}
+
+.inputEmail{
+  width: 230px;
+  padding-bottom: 20px;
+}
+
+.inputName, .inputPassword{
+  padding-bottom: 20px;
+}
+
+input#email, input#password, input#nombre, input#repeatPassword, span.input-group-addon{
+  border-color: black;
+}
+
+body{
+  height: 100%;
+  background-color: rgba(67, 157, 67, 0.9);
+}
+
+.links{
+  margin:10px;
+}
+.links a:hover{
+  color:rgb(28, 159, 50)!important;
+}
+.links a{
+  text-decoration: none;
+}
