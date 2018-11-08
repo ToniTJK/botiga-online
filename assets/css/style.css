@@ -6,7 +6,10 @@ body {
 body {
     padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
+a{
+    color:#089c8c;
 
+}
 .img-portfolio {
     margin-bottom: 30px;
 }
@@ -82,4 +85,37 @@ footer {
     header.carousel .carousel {
         height: 70%;
     }
+}.logo{
+    margin-top: 5%;
+    width: 100px;
+    height: 70px;
 }
+.navbar{
+    background-color: #D8F09B;
+    text-align: center;
+
+}
+
+.input-group-btn{
+    float: left;
+}
+input.form-control{
+    float:left;
+    width: 60%;
+    /*margin-top:10%;*/
+    
+}
+.buscar{
+    float:left;
+    margin:0px;
+    /*margin-top:10%;*/
+    margin-right: 20%;
+}
+.btn.btn-primary.buscar{
+    background-color: #089c8c;
+}
+
+.container li{
+    float:left;
+    /*margin-top:5%;*/
+}l
