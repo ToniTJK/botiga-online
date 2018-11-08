@@ -12,15 +12,14 @@
   border: 5px solid rgb(0, 0, 0);
 }
 
-.jumbotron>h2{
-  text-align: center;
+.jumbotron>img{
+  vertical-align: middle;
   margin-bottom: 50px;
 }
 .jumbotron>form>button{
   text-align: center;
   margin-top: 10%;
   margin-bottom: 5%;
-  text-decoration:none;
 }
 
 .inputEmail{
@@ -49,4 +48,47 @@ body{
 }
 .links a{
   text-decoration: none;
+}
+
+@media only screen and (max-width: 768px){ 
+  .jumbotron{
+    width: 70%!important;
+    margin-top: 15%;
+    margin-left: 17%!important;
+    margin-right: 100px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 5px solid rgb(0, 0, 0);
+  }
+}
+
+@media only screen and (max-width: 425px){ 
+  .jumbotron>img{
+    vertical-align: middle;
+    margin-bottom: 50px;
+    width: 50%;
+    height: 50%;
+  }
+  .jumbotron{
+    width: 90%;
+    margin-top: 15%;
+    margin-left: 10%;
+    margin-right: 100px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 5px solid rgb(0, 0, 0);
+  }
+}
+
+
+@media only screen and (max-width: 300px){ 
+  
 }
