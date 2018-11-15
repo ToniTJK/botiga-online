@@ -1,15 +1,23 @@
+/*
+Header ->  background-color: #ebf7d4;
+
+p -> negro
+
+Titulos grandes-> #101604
+
+*/
+
+
+
 html,
 body {
     height: 100%;
 }
 
 body {
-    padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-top:80px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
-a{
-    color:#089c8c;
 
-}
 .img-portfolio {
     margin-bottom: 30px;
 }
@@ -110,7 +118,7 @@ ol.carousel-indicators li.active {
 }
 
 ol.carousel-indicators li.active {
-  background: yellow;
+  background: #80ac20;            
 }
 
 /* Responsive Styles */
@@ -130,37 +138,52 @@ ol.carousel-indicators li.active {
     header.carousel .carousel {
         height: 70%;
     }
-}.logo{
-    margin-top: 5%;
-    width: 100px;
-    height: 70px;
-}
-.navbar{
-    background-color: #D8F09B;
-    text-align: center;
 
-}
 
 .input-group-btn{
     float: left;
 }
-input.form-control{
-    float:left;
-    width: 60%;
-    /*margin-top:10%;*/
+
+
+
+
+/*ul{
+    position: ;
+    top: 50%;
+    left: 50%;
+    height: 30%;
+    width: 50%;
+    
+}*/
+
+h1.titulo1{
+  color:#608118;
+  font-weight:;
+}
+.card{
+    padding:10px;
+    width: 100%;
+    background-color:#ebf7d4;
+    box-shadow: 2px 5px #80ac20;
+   /* border:1px solid #101604;*/
+}
+.card-title{
+    width:100%;
+    font-size: 15pt;
+    color: #608118;
+}
+.card-img-top{
+   width: 100%;
+}
+a.precio{
+    font-size: 15pt;
+    font-weight: bold;
     
 }
-.buscar{
-    float:left;
-    margin:0px;
-    /*margin-top:10%;*/
-    margin-right: 20%;
-}
-.btn.btn-primary.buscar{
-    background-color: #089c8c;
+
+.container{
+ margin-left: 5%;
+ margin-right: 5%; 
+  width: 90%;
 }
 
-.container li{
-    float:left;
-    /*margin-top:5%;*/
-}l
