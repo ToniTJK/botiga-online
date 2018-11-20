@@ -1,0 +1,42 @@
+body {
+    padding-top:80px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+a{
+    color:#089c8c;
+}
+
+.logo{
+    margin-top: 5%;
+    width: 100px;
+    height: 70px;
+    margin-bottom:5%;
+}
+
+.navbar{
+    background-color: #ebf7d4;	
+}
+
+input.form-control{
+    float:left;
+    width: 60%;
+    /*margin-top:10%;*/
+    
+}
+
+.busqueda{
+  padding: 20px;
+    float: left;
+    width: 300px;
+    height: 50px;
+}
+
+.btn.btn-primary {
+    background-color: #089c8c;
+    margin-right: 20%;
+    width: 15%;
+}
+.container li{
+    float:left;
+    margin-top:6%;
+}l
