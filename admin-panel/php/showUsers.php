@@ -1,4 +1,5 @@
 <?php
+// User
 header('Content-type:application/javascript');
 require "../../baseDatos/dbConect.php";
 
@@ -23,6 +24,7 @@ else {
     echo $json; 
 } 
 
+mysqli_stmt_close($sql);
 mysqli_close($cnx);
 
 ?>

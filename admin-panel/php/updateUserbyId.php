@@ -1,4 +1,5 @@
 <?php
+// User
 header('Content-type:application/javascript');
 require "../../baseDatos/dbConect.php";
 
@@ -13,7 +14,9 @@ $userTelefono = $_GET['userTelefono'];
 $userImagen = $_GET['userImagen'];
 
 $output = array();
-/*$sql = "UPDATE usuarios set nombre='".$userNombre."', 
+/* 
+        FORMA TRADICIONAL
+$sql = "UPDATE usuarios set nombre='".$userNombre."', 
 apellido='".$userApellido."', email='".$userEmail."', 
 ubicacion='".$userUbicacion."', provincia='".$userProvincia."',
 ciudad='".$userCiudad."', telefono=".$userTelefono.", 
@@ -29,16 +32,13 @@ else
     */
 $sql = "UPDATE usuarios set nombre=?, apellido=?, email=?, ubicacion=?, provincia=?, ciudad=?, telefono=?, imagen=? WHERE id_usuario = ?";
 
-//$result = $cnx->prepare($sql);
-//$result->bind_param("ssssssis", $userNombre, $userApellido, $userEmail, $userUbicacion, $userProvincia, $userCiudad, $userTelefono, $userImagen);
-
 $result = mysqli_prepare($cnx, $sql);
 mysqli_stmt_bind_param($result, "ssssssisi", $userNombre, $userApellido, $userEmail, $userUbicacion, $userProvincia, $userCiudad, $userTelefono, $userImagen, $userId);
 
 mysqli_stmt_execute($result);
 
 if (!(mysqli_stmt_execute($result)))
-    $output[] = "No s’ha pogut inserir el registre";
+    $output[] = "No se ha podido actualizar el registro.";
 else
     $output[] = "Se ha actualizado correctamente!";
 

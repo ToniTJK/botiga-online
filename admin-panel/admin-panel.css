@@ -1,0 +1,21 @@
+input{
+    border: 1px solid black;
+}
+
+#formulario{
+    background-color: #ccc;
+}
+
+.modal-header h3{
+    position: absolute;
+}
+
+.active{
+    text-decoration: none !important;
+    /*background: #E03137 !important;*/
+    border-bottom: 4px solid yellow !important;
+}
+
+a.btn.btn-success{
+    margin: 20px;
+}

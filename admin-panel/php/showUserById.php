@@ -1,4 +1,5 @@
 <?php
+// User
 header('Content-type:application/javascript');
 require "../../baseDatos/dbConect.php";
 
