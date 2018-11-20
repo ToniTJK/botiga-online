@@ -7,13 +7,9 @@ use dbTiendaOnline;
 CREATE TABLE articulos_juegos(
       id_articulo_juego INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
       nombre VARCHAR(60),
-<<<<<<< HEAD
-      imagen LONGTEXT,
-=======
       descripcion VARCHAR(240),
       imagen LONGTEXT,
       video TEXT,
->>>>>>> a782fd43d2e4948f3d79f1b2433147741dcb6cf1
       precio double
       /* FOREIGN KEYS ABAJO */
 
@@ -29,13 +25,8 @@ CREATE TABLE historial_compra(
 
 );
 
-<<<<<<< HEAD
-CREATE TABLE catalogo(
-      id_catalogo INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-=======
 CREATE TABLE plataforma(
       id_plataforma INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
->>>>>>> a782fd43d2e4948f3d79f1b2433147741dcb6cf1
       nombre VARCHAR(30)
       /* FOREIGN KEYS ABAJO */
 
@@ -52,21 +43,12 @@ CREATE TABLE usuarios(
       id_usuario INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
       nombre VARCHAR(75),
       apellido VARCHAR(75),
-<<<<<<< HEAD
-      ubicacion VARCHAR(75),
-=======
->>>>>>> a782fd43d2e4948f3d79f1b2433147741dcb6cf1
       provincia VARCHAR(75),
       ciudad VARCHAR(75),
       email VARCHAR(75),
       password VARCHAR(75),
-<<<<<<< HEAD
-      telefono INT(9),
-      imagen LONGTEXT,
-=======
       imagen LONGTEXT,
       fecha_creacion VARCHAR(60),
->>>>>>> a782fd43d2e4948f3d79f1b2433147741dcb6cf1
       rol ENUM('user', 'admin') NULL DEFAULT NULL
       /* FOREIGN KEYS ABAJO */
 
@@ -76,20 +58,12 @@ CREATE TABLE pedidos(
       id_pedido INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
       /* FOREIGN KEYS ABAJO */
       id_articulo_juego INT(11) NOT NULL,
-<<<<<<< HEAD
-      id_usuario INT(11) NOT NULL
-=======
       id_usuario INT(11) NOT NULL,
       id_llaves INT(11) NOT NULL
->>>>>>> a782fd43d2e4948f3d79f1b2433147741dcb6cf1
 
 );
 
 CREATE TABLE favoritos(
-<<<<<<< HEAD
-      id_favoritos INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-=======
->>>>>>> a782fd43d2e4948f3d79f1b2433147741dcb6cf1
       /* FOREIGN KEYS ABAJO */
       id_articulo_juego INT(11) NOT NULL,
       id_usuario INT(11) NOT NULL
@@ -104,8 +78,6 @@ CREATE TABLE llaves(
 
 );
 
-<<<<<<< HEAD
-=======
 CREATE TABLE carrito(
       id_carrito INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
       /* FOREIGN KEYS ABAJO */
@@ -114,7 +86,6 @@ CREATE TABLE carrito(
 
 );
 
->>>>>>> a782fd43d2e4948f3d79f1b2433147741dcb6cf1
 /* N:Ns */
 CREATE TABLE juegos_genero(
       /* FOREIGN KEYS ABAJO */
@@ -126,16 +97,6 @@ CREATE TABLE juegos_genero(
 CREATE TABLE juegos_categoria(
       /* FOREIGN KEYS ABAJO */
       id_articulo_juego INT(11) NOT NULL,
-<<<<<<< HEAD
-      id_catalogo INT(11) NOT NULL
-
-);
-
-/* Claves foráneas de favoritos. */
-ALTER TABLE pedidos
-ADD FOREIGN KEY (id_articulo_juego) REFERENCES articulos_juegos(id_articulo_juego) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE;
-=======
       id_plataforma INT(11) NOT NULL
 
 );
@@ -156,19 +117,12 @@ ALTER TABLE pedidos
 ADD FOREIGN KEY (id_articulo_juego) REFERENCES articulos_juegos(id_articulo_juego) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD FOREIGN KEY (id_llaves) REFERENCES llaves(id_llaves) ON DELETE CASCADE ON UPDATE CASCADE;
->>>>>>> a782fd43d2e4948f3d79f1b2433147741dcb6cf1
 
 /* Claves foráneas de favoritos. */
 ALTER TABLE favoritos
 ADD FOREIGN KEY (id_articulo_juego) REFERENCES articulos_juegos(id_articulo_juego) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE;
 
-<<<<<<< HEAD
-/* Claves foráneas de llave. */
-ALTER TABLE llaves
-ADD FOREIGN KEY (id_articulo_juego) REFERENCES articulos_juegos(id_articulo_juego) ON DELETE CASCADE ON UPDATE CASCADE;
-
-=======
 /* Claves foráneas de llaves. */
 ALTER TABLE llaves
 ADD FOREIGN KEY (id_articulo_juego) REFERENCES articulos_juegos(id_articulo_juego) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -178,7 +132,6 @@ ALTER TABLE carrito
 ADD FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD FOREIGN KEY (id_articulo_juego) REFERENCES articulos_juegos(id_articulo_juego) ON DELETE CASCADE ON UPDATE CASCADE;
 
->>>>>>> a782fd43d2e4948f3d79f1b2433147741dcb6cf1
 /* Claves foráneas de los N:Ns. */
 ALTER TABLE juegos_genero
 ADD FOREIGN KEY (id_articulo_juego) REFERENCES articulos_juegos(id_articulo_juego) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -186,15 +139,11 @@ ADD FOREIGN KEY (id_genero) REFERENCES genero(id_genero) ON DELETE CASCADE ON UP
 
 ALTER TABLE juegos_categoria
 ADD FOREIGN KEY (id_articulo_juego) REFERENCES articulos_juegos(id_articulo_juego) ON DELETE CASCADE ON UPDATE CASCADE,
-<<<<<<< HEAD
-ADD FOREIGN KEY (id_catalogo) REFERENCES catalogo(id_catalogo) ON DELETE CASCADE ON UPDATE CASCADE;
-=======
 ADD FOREIGN KEY (id_plataforma) REFERENCES plataforma(id_plataforma) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE plataforma_juegos
 ADD FOREIGN KEY (id_plataforma) REFERENCES plataforma(id_plataforma) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD FOREIGN KEY (id_articulo_juego) REFERENCES articulos_juegos(id_articulo_juego) ON DELETE CASCADE ON UPDATE CASCADE;
->>>>>>> a782fd43d2e4948f3d79f1b2433147741dcb6cf1
 
 /*
 Aldo
