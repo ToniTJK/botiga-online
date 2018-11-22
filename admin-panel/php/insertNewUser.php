@@ -6,19 +6,19 @@ require "../../baseDatos/dbConect.php";
 $userNombre = $_GET['userNombre'];
 $userApellido = $_GET['userApellido'];
 $userEmail = $_GET['userEmail'];
-$userUbicacion = $_GET['userUbicacion'];
 $userProvincia = $_GET['userProvincia'];
 $userCiudad = $_GET['userCiudad'];
-$userTelefono = $_GET['userTelefono'];
+$userRol = $_GET['userRol'];
 $userImagen = $_GET['userImagen'];
+$currentDate = $date = date('d/m/Y');
 
 $output = array();
-$sql = "INSERT INTO usuarios (nombre,apellido,email,ubicacion,provincia,ciudad,telefono,imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO usuarios (nombre,apellido,provincia,ciudad,email,imagen,fecha_creacion,rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 $result = mysqli_prepare($cnx, $sql);
-mysqli_stmt_bind_param($result, "ssssssis", $userNombre, $userApellido, $userEmail, $userUbicacion, $userProvincia, $userCiudad, $userTelefono, $userImagen);
+mysqli_stmt_bind_param($result, "ssssssss", $userNombre, $userApellido, $userEmail, $userProvincia, $userCiudad, $userImagen, $currentDate, $userRol);
 
-mysqli_stmt_execute($result);
+// $check = mysqli_stmt_execute($result);
 
 if (!(mysqli_stmt_execute($result)))
     $output[] = "No se ha podido añadir el usuario.";

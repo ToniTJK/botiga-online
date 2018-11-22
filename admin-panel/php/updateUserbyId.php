@@ -7,11 +7,10 @@ $userId = $_GET['userId'];
 $userNombre = $_GET['userNombre'];
 $userApellido = $_GET['userApellido'];
 $userEmail = $_GET['userEmail'];
-$userUbicacion = $_GET['userUbicacion'];
 $userProvincia = $_GET['userProvincia'];
 $userCiudad = $_GET['userCiudad'];
-$userTelefono = $_GET['userTelefono'];
 $userImagen = $_GET['userImagen'];
+$userRol = $_GET['userRol'];
 
 $output = array();
 /* 
@@ -30,10 +29,10 @@ if(mysqli_affected_rows($con))
 else 
     $output[] = "No s'ha pogut actualitzar!";
     */
-$sql = "UPDATE usuarios set nombre=?, apellido=?, email=?, ubicacion=?, provincia=?, ciudad=?, telefono=?, imagen=? WHERE id_usuario = ?";
+$sql = "UPDATE usuarios set nombre=?, apellido=?, email=?, provincia=?, ciudad=?, imagen=?, rol=? WHERE id_usuario = ?";
 
 $result = mysqli_prepare($cnx, $sql);
-mysqli_stmt_bind_param($result, "ssssssisi", $userNombre, $userApellido, $userEmail, $userUbicacion, $userProvincia, $userCiudad, $userTelefono, $userImagen, $userId);
+mysqli_stmt_bind_param($result, "sssssssi", $userNombre, $userApellido, $userEmail, $userProvincia, $userCiudad, $userImagen, $userRol, $userId);
 
 mysqli_stmt_execute($result);
 

@@ -3,17 +3,17 @@
 header('Content-type:application/javascript');
 require "../../baseDatos/dbConect.php";
 
-$userId = $_GET['userId'];
+$gameId = $_GET['gameId'];
 $output = array();
 
-$sql = "DELETE FROM usuarios WHERE id_usuario = ?";
+$sql = "DELETE FROM articulos_juegos WHERE id_articulo_juego = ?";
 
 $result = mysqli_prepare($cnx, $sql);
-mysqli_stmt_bind_param($result, "i", $userId);
+mysqli_stmt_bind_param($result, "i", $gameId);
 
-//mysqli_stmt_execute($result);
+$check = mysqli_stmt_execute($result);
 
-if (!(mysqli_stmt_execute($result)))
+if (!$check)
     $output[] = "No se ha podido eliminar correctamente.";
 else
     $output[] = "Se ha eliminado correctamente!";
