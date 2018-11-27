@@ -28,7 +28,16 @@ function insertUser(){
             //$("#divAdd").html('Creando Usuario...');
         },
         success: function (respJSON) {
-            alert("FUNCIONA CONCHATUMADREEEEEEEEE");
+            var json = JSON.parseJSON(respJSON);
+            alert(json);
+
+
+
+            // OIGA RECONTRA PELOTUDO TE QUEDASTE AQUI XDX DXDXDXdx
+            // Deberían de salir mensajes de error....?
+
+
+
         },
         error:function (xhr, ajaxOptions, thrownError) {
             $("#divAdd").html('Ha habido un pinche error.');
