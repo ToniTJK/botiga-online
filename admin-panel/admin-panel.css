@@ -1,0 +1,79 @@
+input, select, option{
+    width: 100%;
+    padding: 5px 15px;
+    margin: 3px 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    outline: none;
+}
+
+input:focus{
+    background-color: #E0F2F7
+}
+
+#formulario{
+    
+}
+
+.modal-header h3{
+    position: absolute;
+}
+
+.active{
+    text-decoration: none !important;
+    /*background: #E03137 !important;*/
+    border-bottom: 4px solid yellow !important;
+}
+
+a.btn.btn-success{
+    margin: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color:#f5f5f5;}
+
+tbody:first-child{
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    background: #ccc;
+    text-transform: uppercase;
+}
+tbody:first-child td{
+    text-align: center;
+}
+
+.pagination_link_user, 
+.pagination_link_key, 
+.pagination_link_game{
+    cursor:pointer;
+    padding:6px;
+    border:1px solid #ccc;
+    margin-left: 5px;
+}
+
+
+@media only screen and (max-width: 1024px) {
+    /*
+    a.editarUsuario.btn.btn-warning, a.btn.btn-danger{
+        display: inline-block;
+    }
+    */
+
+    .pagination_link{
+        margin-top: 10px;
+    }
+    
+}

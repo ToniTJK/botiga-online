@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!--
+    <meta http-equiv="Content-Security-Policy" 
+              content="img-src 'self' 
+              http://localhost
+              https://smx2123test.000webhostapp.com
+              https://smx2123test.000webhostapp.com/HardwareHome
+              https://smx2123test.000webhostapp.com/HardwareHome/imagenes
+              data: gap: https://ssl.gstatic.com 
+              'unsafe-inline' 'unsafe-eval'; media-src *;"> -->
+    <title>Admin Panel</title>
+    <!-- jQuery first -->
+    <script type="text/javascript" src="../assets/js/jquery.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.min.css" />
+    <script type="text/javascript" src="../assets/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- script js -->
+    <script type="text/javascript" src="../assets/js/script.js"></script>
+    
+
+    <!-- Font Awesome 5+ -->
+    <script src="../node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css"/>
+    <link rel="stylesheet" href="./admin-panel.css"/>
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
+    <style>
+            table{
+                border:1px solid black;
+            }
+            td{
+                border: 1px solid black;
+            }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+               <a href="#" class="navbar-left"><img class="logo" src="../img/logo_5.png"></a>
+        		<!-- <div class="cercar">
+	    			<input type="text" class="form-control" placeholder="Search">
+   				</div> -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li>	
+                    <input type="text" class="form-control" placeholder="Search">
+					<button type="button" class="btn btn-primary buscar"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+
+                    </li>
+                    <li>	
+                        <a href="about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="services.html">Services</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contact</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="portfolio-1-col.html">1 Column Portfolio</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-2-col.html">2 Column Portfolio</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-3-col.html">3 Column Portfolio</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-4-col.html">4 Column Portfolio</a>
+                            </li>
+                            <li>
+                                <a href="portfolio-item.html">Single Portfolio Item</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="blog-home-1.html">Blog Home 1</a>
+                            </li>
+                            <li>
+                                <a href="blog-home-2.html">Blog Home 2</a>
+                            </li>
+                            <li>
+                                <a href="blog-post.html">Blog Post</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Pages <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="full-width.html">Full Width Page</a>
+                            </li>
+                            <li>
+                                <a href="sidebar.html">Sidebar Page</a>
+                            </li>
+                            <li>
+                                <a href="faq.html">FAQ</a>
+                            </li>
+                            <li>
+                                <a href="404.html">404</a>
+                            </li>
+                            <li>
+                                <a href="pricing.html">Pricing Table</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Header
+    <header id="myCarousel" class="carousel slide">
+    
+    </header> -->
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Marketing Icons Section -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        Welcome to Admin Panel
+                    </h1>
+                </div>
+            </div>
+        
+
+        <!--<div class="row">
+            <div class="col-lg-12">
+                <div class="btn-group btn-group-justified">
+                    <a href="#" class="btn btn-primary">Usuarios</a>
+                    <a href="#" class="btn btn-primary">Juegos</a>
+                    <a href="#" class="btn btn-primary">Llaves</a>
+                </div>
+            </div>
+        </div>-->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <!--<h4><i class="fa fa-fw fa-check"></i> Admin Panel</h4>-->
+                        <div class="btn-group btn-group-justified">
+                            <a id="user" class="btn btn-primary">Usuarios</a>
+                            <a id="game" class="btn btn-primary">Juegos</a>
+                            <a id="key" class="btn btn-primary">Llaves</a>
+                        </div>
+                    </div>
+                    <div id="table" class="panel-body"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Call to Action Section -->
+        <div class="well">
+            <div class="row">
+                <div class="col-md-8">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, expedita, saepe, vero rerum deleniti beatae veniam harum neque nemo praesentium cum alias asperiores commodi.</p>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-lg btn-default btn-block" href="#">Call to Action</a>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Fast Keys 2018</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Modal Add -->
+    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+             <div class="modal-content">
+            <!--<div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLongTitle">Editar Usuario</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>-->
+                
+                <div id="divAdd" class="modal-body">
+                    <form id='formInsertUser' method='post'>    
+                        <!--<div class="form-group"><label for="">Nombre</label><input id="insertNombre" type="text" name="nombre" placeholder="nombre" value=""></div>
+                        <div class="form-group"><label for="">Apellidos</label><input id="insertApellido" type="text" name="apellidos" placeholder="apellidos" value=""></div>
+                        <div class="form-group"><label for="">Email</label><input id="insertEmail" type="email" name="email" placeholder="email" value=""></div>
+                        <div class="form-group"><label for="">Ubicacion</label><input id="insertUbicacion" type="text" name="ubicacion" placeholder="ubicacion" value=""></div>
+                        <div class="form-group"><label for="">Provincia</label><input id="insertProvincia" type="text" name="provincia" placeholder="provincia" value=""></div>
+                        <div class="form-group"><label for="">Ciudad</label><input id="insertCiudad" type="text" name="ciudad" placeholder="ciudad" value=""></div>
+                        <div class="form-group"><label for="">telefono</label><input id="insertTelefono" type="text" name="telefono" placeholder="telefono" value=""></div>
+                        <div class="form-group"><label for="">imagen</label><input id="insertImagen" type="text" name="imagen" placeholder="imagen" value=""></div>-->
+                    </form>
+                </div>
+    
+                <div id="modalFooterAdd" class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                    <button id="btnInsertUser" type="button" class="btn btn-success">Guardar Datos</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    <!-- Modal Edit -->
+    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle">Editar Usuario</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> -->
+            
+            <div id="divEditUser" class="modal-body"></div>
+
+            <div id="modalFooterEdit" class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                <button id="updateUser" type="button" class="btn btn-success">Guardar Datos</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+  <!-- Modal Delete -->
+  <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <!-- HEADER
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+        -->
+        <div id="modalBodyDelete" class="modal-body">
+          
+        </div>
+        <div id="modalFooterDelete" class="modal-footer">
+          <input id='inputDelete' type='hidden' value=''>
+          <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+          <button id="deleteUser" type="button" class="btn btn-danger">Eliminar Usuario</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Script -->
+    <script type="text/javascript" src="./admin-panel.js"></script>
+  </body>
+</html>
