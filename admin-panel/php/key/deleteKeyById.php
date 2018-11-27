@@ -1,15 +1,15 @@
 <?php
 // User
 header('Content-type:application/javascript');
-require "../../baseDatos/dbConect.php";
+require "../../../baseDatos/dbConect.php";
 
-$gameId = $_GET['gameId'];
+$keyId = $_GET['keyId'];
 $output = array();
 
-$sql = "DELETE FROM articulos_juegos WHERE id_articulo_juego = ?";
+$sql = "DELETE FROM llaves WHERE id_llaves = ?";
 
 $result = mysqli_prepare($cnx, $sql);
-mysqli_stmt_bind_param($result, "i", $gameId);
+mysqli_stmt_bind_param($result, "i", $keyId);
 
 $check = mysqli_stmt_execute($result);
 

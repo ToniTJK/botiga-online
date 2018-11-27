@@ -1,11 +1,11 @@
 <?php
 // User
 header('Content-type:application/javascript');
-require "../../baseDatos/dbConect.php";
+require "../../../baseDatos/dbConect.php";
 
-$idUser = $_GET['idUser'];
+$idGame = $_GET['idGame'];
 $output = array();
-$sql = "SELECT * FROM usuarios WHERE id_usuario = ".$idUser;
+$sql = "SELECT * FROM articulos_juegos WHERE id_articulo_juego = ".$idGame;
 $result = mysqli_query($cnx, $sql);
 
 if (mysqli_num_rows($result) > 0){

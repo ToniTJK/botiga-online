@@ -1,7 +1,7 @@
 <?php
 // User
 header('Content-type:application/javascript');
-require "../../baseDatos/dbConect.php";
+require "../../../baseDatos/dbConect.php";
 
 $userNombre = $_GET['userNombre'];
 $userApellido = $_GET['userApellido'];

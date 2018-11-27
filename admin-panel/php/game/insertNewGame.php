@@ -1,7 +1,7 @@
 <?php
 // Game
 header('Content-type:application/javascript');
-require "../../baseDatos/dbConect.php";
+require "../../../baseDatos/dbConect.php";
 
 $gameNombre = $_GET['gameNombre'];
 $gameDescripcion = $_GET['gameDescripcion'];

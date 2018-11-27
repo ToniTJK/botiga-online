@@ -1,10 +1,11 @@
 <?php
-// Games
+// User
 header('Content-type:application/javascript');
-require "../../baseDatos/dbConect.php";
+require "../../../baseDatos/dbConect.php";
 
+$idKey = $_GET['idKey'];
 $output = array();
-$sql = "SELECT * FROM articulos_juegos";
+$sql = "SELECT * FROM llaves WHERE id_llaves = ".$idKey;
 $result = mysqli_query($cnx, $sql);
 
 if (mysqli_num_rows($result) > 0){
@@ -16,7 +17,6 @@ if (mysqli_num_rows($result) > 0){
     echo "No hay Usuarios.";
 }
 
-//$jsonas = json_encode("test");
 if(isset($_GET['callback'])){
    echo $_GET['callback'].'('. $json.')';
 } 
@@ -24,7 +24,6 @@ else {
     echo $json; 
 } 
 
-mysqli_stmt_close($sql);
 mysqli_close($cnx);
 
 ?>
