@@ -27,7 +27,6 @@ function showUsers(pages){
     /* Prevent null / undefined of pages */
     if (pages === null || typeof pages === 'undefined' || !pages ) 
         pages = 0;
-    console.log(pages);
     
     $.ajax({
         url: urlShowUsers,
@@ -255,7 +254,7 @@ function showGames(pages){
     /* Prevent null / undefined of pages */
     if (pages == null || typeof pages === 'undefined' || !pages ) 
         pages = 0;
-    console.log(pages);
+    
 
     $.ajax({
         url: urlShowGames,
