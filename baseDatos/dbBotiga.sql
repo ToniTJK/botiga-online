@@ -1,6 +1,6 @@
 /* Arnau Viladerrams & Toni Torres & Aldo Menéndez */
 
-drop database if exists dbTiendaOnline;
+/*drop database if exists dbTiendaOnline;*/
 create database dbTiendaOnline;
 use dbTiendaOnline;
 
