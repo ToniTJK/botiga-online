@@ -1,4 +1,6 @@
 <?php
+header('Content-type:application/javascript');
+
 $cnx = new mysqli("localhost","root","root","dbTiendaOnline");
 
 if ($cnx->connect_errno) 

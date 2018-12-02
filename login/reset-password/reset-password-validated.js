@@ -1,25 +1,27 @@
 $( document ).ready(function() {
     /* Al fer click es mostrar la taula demanada */
-    $('#logIn').click(checkLog);
+    $('#reset').click(checkEmail);
     $('#mssg').html("");
     
 });
 
-/* Log In */
-var urlCheckLog = "./php/checkLog.php";
-function checkLog(){
+//var urlCheckEmail = "./php/checkEmail.php"
+var urlCheckEmail = "http://dualtest.tonitorrescuenca.com/checkEmail.php"
+function checkEmail(){
     var email = $('#email').val();
-    var password = $('#password').val();
     
     $.ajax({
-        url: urlCheckLog,
-        dataType: "jsonp",
+        url: urlCheckEmail,
+        dataType: "json",
         jsonp: "callback",
-        data: {email:email,password:password},
+        data: {email:email},
         beforeSend: function () {
             //$("#modalBodyDelete").html('Eliminando...');
         },
         success: function (respJSON) {
+            console.log(respJSON.status);
+            alert(respJSON.status);
+            /*
             var alertSql = '<div class="alert alert-danger" role="alert">Error de Base de Datos, Contacte con Admin</div>';
             var alertTrue = '<div class="alert alert-success" role="alert"> Accediendo... <i class="fas fa-check"></i></div>';
             var alertFalse = '<div class="alert alert-danger" role="alert">Error en Usuario/Contraseña</div>';
@@ -38,7 +40,9 @@ function checkLog(){
                 case "null":
                     $('#mssg').html(alertNull);
                     break;
-            }
+                }
+            */
+            
             
         },
         error:function (xhr, ajaxOptions, thrownError) {

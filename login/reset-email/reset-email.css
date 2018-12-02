@@ -1,0 +1,97 @@
+.jumbotron{
+    width: 50%;
+    margin-top: 15%;
+    margin-left: 25%;
+    margin-right: 100px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 5px solid rgb(0, 0, 0);
+  }
+  
+  .jumbotron>img{
+    vertical-align: middle;
+    margin-bottom: 50px;
+  }
+  .jumbotron>form>a{
+    text-align: center;
+    margin-top: 10%;
+    margin-bottom: 5%;
+  }
+  
+  .inputEmail{
+    padding-bottom: 20px;
+  }
+  
+  input#email, span.input-group-addon{
+    border-color: black;
+  }
+  
+  body{
+    height: 100%;
+    /*background-color: rgb(67, 157, 67);*/
+    background-color: rgba(67, 157, 67, 0.9);
+  }
+  
+  .links{
+    margin:10px;
+  }
+  
+  .links a{
+    text-decoration: none;
+  }
+  .links a:hover{
+    color:rgb(28, 159, 50)!important;
+  }
+  
+  .links>a:first-child{
+    color:rgb(223, 57, 57);
+  }  
+  
+  @media only screen and (max-width: 768px){ 
+    .jumbotron{
+      width: 70%!important;
+      margin-top: 15%;
+      margin-left: 17%!important;
+      margin-right: 100px;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border: 5px solid rgb(0, 0, 0);
+    }
+  }
+  
+  @media only screen and (max-width: 425px){ 
+    .jumbotron>img{
+      vertical-align: middle;
+      margin-bottom: 50px;
+      width: 50%;
+      height: 50%;
+    }
+    .jumbotron{
+      width: 90%;
+      margin-top: 15%;
+      margin-left: 10%;
+      margin-right: 100px;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border: 5px solid rgb(0, 0, 0);
+    }
+  }
+  
+  
+  @media only screen and (max-width: 300px){ 
+    
+  }
+  
+  

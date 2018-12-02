@@ -1,8 +1,9 @@
 /* Arnau Viladerrams & Toni Torres & Aldo Menéndez */
 
 /*drop database if exists dbTiendaOnline;*/
-create database dbTiendaOnline;
-use dbTiendaOnline;
+/*create database dbTiendaOnline;*/
+/*use dbTiendaOnline;*/
+use pnqeuxzl_db_botigaonline
 
 CREATE TABLE articulos_juegos(
       id_articulo_juego INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
