@@ -16,7 +16,7 @@
   vertical-align: middle;
   margin-bottom: 50px;
 }
-.jumbotron>form>button{
+.jumbotron>form>a{
   text-align: center;
   margin-top: 10%;
   margin-bottom: 5%;
@@ -50,7 +50,7 @@ body{
   text-decoration: none;
 }
 
-@media only screen and (max-width: 768px){ 
+@media only screen and (max-width: 768px){
   .jumbotron{
     width: 70%!important;
     margin-top: 15%;
@@ -66,7 +66,7 @@ body{
   }
 }
 
-@media only screen and (max-width: 425px){ 
+@media only screen and (max-width: 425px){
   .jumbotron>img{
     vertical-align: middle;
     margin-bottom: 50px;
@@ -89,6 +89,6 @@ body{
 }
 
 
-@media only screen and (max-width: 300px){ 
-  
+@media only screen and (max-width: 300px){
+
 }
