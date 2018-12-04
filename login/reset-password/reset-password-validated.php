@@ -42,7 +42,7 @@
               <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
             </div>
           </div>
-          <?php echo $_GET['id']; ?>
+          
           <div class="inputRepeatPassword">
             <div class="input-group">
               <span class="input-group-addon"><i class="fas fa-at"></i></span>
@@ -50,7 +50,7 @@
             </div>
           </div>
 
-            <a id="reset" class="btn btn-success" value="reset">Cambiar</a>
+            <a id="cambiar" onclick="checkPassword(<?php echo $_GET['id']; ?>)" class="btn btn-success" value="reset">Cambiar</a>
             <div class="links">
               <a href="../../registro/registro.html">Registrate!</a>   <a href="../login.html">Log In</a>
             </div>
