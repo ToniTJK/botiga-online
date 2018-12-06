@@ -11,7 +11,8 @@ CREATE TABLE articulos_juegos(
       descripcion VARCHAR(240),
       imagen LONGTEXT,
       video TEXT,
-      precio double
+      precio double,
+      token text
       /* FOREIGN KEYS ABAJO */
 
 );

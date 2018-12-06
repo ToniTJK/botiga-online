@@ -1,30 +1,124 @@
 /*
 Header ->  background-color: #ebf7d4;
-
 p -> negro
-
 Titulos grandes-> #101604
-
 */
-
-
-
 html,
 body {
     height: 100%;
 }
 
 body {
-    padding-top:80px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-top:0px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
-.img-portfolio {
-    margin-bottom: 30px;
+/*HEADER*/
+.divclick{
+    cursor: pointer;
 }
 
-.img-hover:hover {
-    opacity: 0.8;
+.divclick:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(255,255,255,0.4);
+  -webkit-transition: none;
+     -moz-transition: none;
+          transition: none;
 }
+.divclick:hover:after {
+  width: 120%;
+  background-color: rgba(255,255,255,0);
+  
+  -webkit-transition: all 0.4s ease-in-out;
+     -moz-transition: all 0.4s ease-in-out;
+          transition: all 0.4s ease-in-out;
+}
+/*header*/
+.cabecera{
+  margin-top: 0px!important;
+  width: 100%;
+  background-color: #aedf53;
+}
+ul{
+  width: 15%;
+  margin: 0 auto;
+  padding: 0;
+  margin-left: 80%;
+}
+nav li{
+  list-style: none;
+  display: inline-block;
+  padding: 20px;
+}
+nav li:hover{
+  background-color: #6c971c;
+}
+ul li a{
+  color:#fff;
+  text-decoration: none;
+}
+.toggle{
+  background-color: #6c971c;  
+  width: 100%;
+  padding: 10px 20px;
+  text-align: right;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 30px;
+  display:none;
+}
+
+.logo-grande .logo{
+    float: left;
+    margin-left: 40px;
+      width: 100px;
+      height: 70px;
+  }
+ol{
+  font-size: 15pt;
+}
+div div ul li {
+  margin-left: 0px;
+}
+
+@media (max-width: 768px)
+{
+  .cercadorr{
+    display: none;
+  }
+
+  .toggle {
+    display: block;
+    background-color: #aedf53;
+  }
+
+  ul{
+    width: 100%;
+    margin:0 auto;
+  }
+  ul{
+    display: none;
+    text-align: center;
+    background-color: #6c971c;  
+  }
+  .logo-grande{
+    display: none;
+  }
+  .logo{
+    float: left;
+      width: 58px;
+      height: 41px;
+  }
+  nav li:active{
+  background-color: #d7efa9;
+  color:#6c971c;
+}
+}
+/*final de Header*/ 
 
 /* Home Page Carousel */
 
@@ -43,37 +137,6 @@ header.carousel .fill {
     height: 100%;
     background-position: center;
     background-size: cover;
-}
-
-/* 404 Page Styles */
-
-.error-404 {
-    font-size: 100px;
-}
-
-/* Pricing Page Styles */
-
-.price {
-    display: block;
-    font-size: 50px;
-    line-height: 50px;
-}
-
-.price sup {
-    top: -20px;
-    left: 2px;
-    font-size: 20px;
-}
-
-.period {
-    display: block;
-    font-style: italic;
-}
-
-/* Footer Styles */
-
-footer {
-    margin: 50px 0;
 }
 
 /* Carousel Styles */
@@ -121,6 +184,34 @@ ol.carousel-indicators li.active {
   background: #80ac20;            
 }
 
+
+/* 404 Page Styles */
+
+.error-404 {
+    font-size: 100px;
+}
+
+/* Pricing Page Styles */
+
+.price {
+    display: block;
+    font-size: 50px;
+    line-height: 50px;
+}
+
+.price sup {
+    top: -20px;
+    left: 2px;
+    font-size: 20px;
+}
+
+.period {
+    display: block;
+    font-style: italic;
+}
+
+/* Footer Styles */
+
 /* Responsive Styles */
 
 @media(max-width:991px) {
@@ -130,6 +221,7 @@ ol.carousel-indicators li.active {
     }
 }
 
+  /*CABECERAS DE SECCION*/
 @media(max-width:767px) {
     .img-portfolio {
         margin-bottom: 15px;
@@ -138,14 +230,54 @@ ol.carousel-indicators li.active {
     header.carousel .carousel {
         height: 70%;
     }
+    img.img-responsive.img-hover{
+      
+    }
+.card{
+    padding:10px;
+    width: 100%;
+    background-color:;
+   /* border:1px solid #101604;*/
+}
+.card-title{
+    width:100%;
+    font-size: 15pt;
+    color: #608118;
+}
 
+img.imagen-carta{
+   width: 100%;
+}
+#test{
+  width: 100%;
+}
+a.precio{
+    font-size: 15pt;
+    font-weight: bold;  
+}
 
-.input-group-btn{
-    float: left;
+.container{
+ margin-left: 5%;
+ margin-right: 5%; 
+ width: 90%;
+}
+.container li{
+    float:left;
+    margin-top:6%;
+}
+
+a{
+    color:#089c8c;
 }
 
 
 
+
+/*
+Header ->  background-color: #ebf7d4;
+p -> negro
+Titulos grandes-> #101604
+*/
 
 /*ul{
     position: ;
@@ -154,36 +286,9 @@ ol.carousel-indicators li.active {
     height: 30%;
     width: 50%;
     
-}*/
+}
 
 h1.titulo1{
   color:#608118;
   font-weight:;
-}
-.card{
-    padding:10px;
-    width: 100%;
-    background-color:#ebf7d4;
-    box-shadow: 2px 5px #80ac20;
-   /* border:1px solid #101604;*/
-}
-.card-title{
-    width:100%;
-    font-size: 15pt;
-    color: #608118;
-}
-.card-img-top{
-   width: 100%;
-}
-a.precio{
-    font-size: 15pt;
-    font-weight: bold;
-    
-}
-
-.container{
- margin-left: 5%;
- margin-right: 5%; 
-  width: 90%;
-}
-
+}*/
