@@ -11,38 +11,31 @@ $userProvincia = $_GET['userProvincia'];
 $userCiudad = $_GET['userCiudad'];
 $userImagen = $_GET['userImagen'];
 $userRol = $_GET['userRol'];
+$final = array();
 
-$output = array();
-/* 
-        FORMA TRADICIONAL
-$sql = "UPDATE usuarios set nombre='".$userNombre."', 
-apellido='".$userApellido."', email='".$userEmail."', 
-ubicacion='".$userUbicacion."', provincia='".$userProvincia."',
-ciudad='".$userCiudad."', telefono=".$userTelefono.", 
-imagen='".$userImagen."' WHERE id_usuario = '".$userId."'";
-echo $sql;
+if(isset($_GET['userImagen'])){
+    $sql = "UPDATE usuarios set nombre=?, apellido=?, email=?, provincia=?, ciudad=?, imagen=?, rol=? WHERE id_usuario = ?";
 
-$result = mysqli_query($cnx, $sql);
+    $result = mysqli_prepare($cnx, $sql);
+    mysqli_stmt_bind_param($result, "sssssssi", $userNombre, $userApellido, $userEmail, $userProvincia, $userCiudad, $userImagen, $userRol, $userId);    
+} else {
+    $sql = "UPDATE usuarios set nombre=?, apellido=?, email=?, provincia=?, ciudad=?, rol=? WHERE id_usuario = ?";
 
-if(mysqli_affected_rows($con))
-    $output[] = "Actualitzat correctament!";
-else 
-    $output[] = "No s'ha pogut actualitzar!";
-    */
-$sql = "UPDATE usuarios set nombre=?, apellido=?, email=?, provincia=?, ciudad=?, imagen=?, rol=? WHERE id_usuario = ?";
+    $result = mysqli_prepare($cnx, $sql);
+    mysqli_stmt_bind_param($result, "ssssssi", $userNombre, $userApellido, $userEmail, $userProvincia, $userCiudad, $userRol, $userId);
 
-$result = mysqli_prepare($cnx, $sql);
-mysqli_stmt_bind_param($result, "sssssssi", $userNombre, $userApellido, $userEmail, $userProvincia, $userCiudad, $userImagen, $userRol, $userId);
+}
 
-mysqli_stmt_execute($result);
+
+//mysqli_stmt_execute($result);
 
 if (!(mysqli_stmt_execute($result)))
-    $output[] = "No se ha podido actualizar el registro.";
+    $status[] = "No se ha podido actualizar el registro.";
 else
-    $output[] = "Se ha actualizado correctamente!";
+    $status[] = "Se ha actualizado correctamente!";
 
-
-$json = json_encode($output);
+$final['status'] = $status;
+$json = json_encode($final);
 
 if(isset($_GET['callback'])){
    echo $_GET['callback'].'('. $json.')';

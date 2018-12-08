@@ -39,19 +39,22 @@ function showUsers(pages){
         success: function (respJSON) {
             var usuarios = respJSON.data1;
             var array_page = respJSON.data2;
-            
+            /* div de Añadir Usuario */
             var div;
             div = '<div class="form-group"><label for="">Nombre</label><input id="insertNombre" type="text" name="nombre" placeholder="nombre" value=""></div>';
             div += '<div class="form-group"><label for="">Apellidos</label><input id="insertApellido" type="text" name="apellidos" placeholder="apellidos" value=""></div>';
-            div += '<div class="form-group"><label for="">Email</label><input id="insertEmail" type="email" name="email" placeholder="email" value=""></div>';
+            div += '<div class="form-group"><label for="">Email **</label><input id="insertEmail" type="email" name="email" placeholder="email" value=""></div>';
+            div += '<div class="form-group"><label for="">Password **</label><input id="insertPassword" type="password" name="password" placeholder="password" value=""></div>';
+            div += '<div class="form-group"><label for="">Repeat Password **</label><input id="insertRepeatPassword" type="password" name="password" placeholder="repeat password" value=""></div>';
             div += '<div class="form-group"><label for="">Provincia</label><input id="insertProvincia" type="text" name="provincia" placeholder="provincia" value=""></div>';
             div += '<div class="form-group"><label for="">Ciudad</label><input id="insertCiudad" type="text" name="ciudad" placeholder="ciudad" value=""></div>';
-            div += '<div class="form-group"><label for="">imagen</label><input id="insertImagen" type="text" name="imagen" placeholder="imagen" value=""></div>';
-            div += '<div class="form-group"><label for="">rol</label><select id="insertRol"><option value="user">user</option><option value="admin">admin</option</select></div>';
+            div += '<div class="form-group"><label for="">imagen</label><input id="insertImagen" type="file" name="imagen" placeholder="imagen" value=""></div>';
+            div += '<div class="form-group"><label for="">rol</label><select id="insertRol"><option value="user">user</option><option value="admin">admin</option></select></div>';
+            div += '<span id="alertaMssg"></span>';
             var buttonSubmitModalAdd = '<button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button><button id="btnInsertUser" type="button" class="btn btn-success">Guardar Datos</button>';
             var buttonAddUser = "<a class='btn btn-success' data-toggle='modal' data-target='#modalAdd'><i class='fas fa-user-plus'></i> Añadir Usuario</a>";
             var buttonDeleteModal = '<button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button><button id="deleteUser" type="button" class="btn btn-danger">Eliminar Usuario</button>';
-            var buttonUpdateModal = '<button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button><button id="updateUser" type="button" class="btn btn-danger">Editar Usuario</button>';
+            var buttonUpdateModal = '<button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button><button id="updateUser" type="submit" class="btn btn-danger">Editar Usuario</button>';
     
             var table = "<div class='table-responsive col-lg-12'>";
             table+= "<table>";
@@ -95,34 +98,129 @@ function passPaginationUser(){
 }
 
 var urlInsertUser = "./php/user/insertNewUser.php";
+//var urlInsertUserImage = "./php/user/updateUserImage.php";
 function insertUser(){
+    /* Values of Inputs */
     var userNombre = $("#insertNombre").val();
     var userApellido = $("#insertApellido").val();
     var userEmail = $("#insertEmail").val();
+    var userPassword = $("#insertPassword").val();
+    var userRepeatPassword = $("#insertRepeatPassword").val();
     var userProvincia = $("#insertProvincia").val();
     var userCiudad = $("#insertCiudad").val();
     var userRol = $("#insertRol").val();
-    var userImagen = $("#insertImagen").val();
+    //var userImagen = $("#insertImagen").val();
+    console.log("password1 => "+userPassword);
+    console.log("Password2 => "+userRepeatPassword);
+    /* user Imagen = variable con el nombre de la imagen subida*/
+    var userImagen;
+    var thereisImage;
+    /*  En el caso de que no se quiera subir una imagen nueva... */
+    if($("#insertImagen").val() == ''){
+        thereisImage = "no";
+    } else {
+        thereisImage = "ok";
+        var image = document.getElementById("insertImagen").files[0];
+        var name = image.name;
+        var ext = name.split('.').pop().toLowerCase();
+        
+        if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
+            thereisImage = "ext";
 
+        var fsize = image.size;
+        if(fsize > 2000000)
+            thereisImage = "size";
+        
+        // Checks   
+        //console.log("file => "+image);
+        //console.log("Name => "+name);
+        //console.log("Ext => "+ext);
+        //console.log("fsize => "+fsize);
+        //console.log("------------------");
+    }
+
+    var alertExt = '<div class="alert alert-danger" role="alert"><strong>Oh snap! Extensión no válida!</strong></div>';
+    var alertSize = '<div class="alert alert-danger" role="alert"><strong>Oh snap! El tamaño de la imagen es demasiado grande</strong></div>';
+    switch(thereisImage){
+        case "ext":
+        $('#alertaMssg').html(alertExt);
+        break;
+        case "size":
+        $('#alertaMssg').html(alertSize);
+        break;
+        case "ok":
+            var form_data = new FormData();
+            form_data.append("file", document.getElementById('insertImagen').files[0]);
+                $.ajax({
+                    url: urlUpdateUserImage,
+                    method:"POST",
+                    data: form_data,
+                    dataType: "jsonp",
+                    jsonp: "callback",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend:function(){},   
+                    success:function(data)
+                    {
+                        console.log("---- SUCCESS ----");
+                        console.log("Status =>"+data.status);
+                        console.log("Path =>"+data.imagen_name);
+                        if(data.status === "error")
+                            alert("No se ha podido subir la imagen, contacte con un Administrador!");
+                        else
+                            userImagen = data.imagen_name;
+                        
+                        /* En cuanto se suba la imagen se updatean los datos */
+                        //requestUpdateUser(userId, userNombre, userApellido, userEmail, userProvincia, userCiudad, userImagen, userImagen, userRol);
+                        requestNewUser(userNombre, userApellido, userEmail, userPassword, userRepeatPassword, userProvincia, userCiudad, userImagen, userRol);
+                    }
+                });
+        break;
+        case "no":
+        requestNewUser(userNombre, userApellido, userEmail, userPassword, userRepeatPassword, userProvincia, userCiudad, userImagen, userRol);
+        break;
+    }
+    
+}
+
+function requestNewUser(userNombre, userApellido, userEmail, userPassword, userRepeatPassword, userProvincia, userCiudad, userImagen, userRol){
+    if(userImagen == '')
+        var data = {userNombre:userNombre, userApellido:userApellido, userEmail:userEmail, userPassword:userPassword, userRepeatPassword:userRepeatPassword, userProvincia:userProvincia, userCiudad:userCiudad, userRol:userRol};
+    else
+        var data = {userNombre:userNombre, userApellido:userApellido, userEmail:userEmail, userPassword:userPassword, userRepeatPassword:userRepeatPassword, userProvincia:userProvincia, userCiudad:userCiudad, userImagen:userImagen, userRol:userRol};
+   
+    //console.log(data);
+    var alertPW = '<div class="alert alert-danger" role="alert"><strong>Oh! Las contraseñas no coinciden!</strong></div>';
+    var alertObli = '<div class="alert alert-danger" role="alert"><strong>Ojito con los ** ! Rellena los campos obligatorios!</strong></div>';
+    var alertFalse = '<div class="alert alert-danger" role="alert"><strong>Error de Servidor, contacte con un admisitrador.</strong></div>';
+    var alertEmail = '<div class="alert alert-danger" role="alert"><strong>El Email no es valido.</strong></div>';
     $.ajax({
         url: urlInsertUser,
         dataType: "jsonp",
         jsonp: "callback",
-        data: {
-            userNombre:userNombre,
-            userApellido:userApellido,
-            userEmail:userEmail,
-            userProvincia:userProvincia,
-            userCiudad:userCiudad,
-            userRol:userRol,
-            userImagen:userImagen
-        },
+        data: data,
         beforeSend: function () {
             //$("#divAdd").html('Creando Usuario...');
         },
-        success: function (respJSON) {
-            $('#modalAdd').modal('hide');
-            showUsers();
+        success: function (data) {
+            switch(data.status){
+                case "pw":
+                    $('#alertaMssg').html(alertPW);
+                break;
+                case "obli":
+                    $('#alertaMssg').html(alertObli);
+                break;
+                case "true":
+                    $('#modalAdd').modal('hide');
+                    showUsers();
+                break;
+                case "false":
+                    $('#alertaMssg').html(alertFalse);
+                case "email":
+                    $('#alertaMssg').html(alertEmail);
+                break;
+            } 
         },
         error:function (xhr, ajaxOptions, thrownError) {
             $("#divAdd").html('No se ha podido añadir Usuarios.');
@@ -152,8 +250,9 @@ function editUser(){
                 modal += '<div class="form-group"><label for="">Email:</label><input id="inputEmail" type="email" name="email" placeholder="'+respJSON[k].email+'" value="'+respJSON[k].email+'"></div>';
                 modal += '<div class="form-group"><label for="">Provincia:</label><input id="inputProvincia" type="text" name="provincia" placeholder="'+respJSON[k].provincia+'" value="'+respJSON[k].provincia+'"></div>';
                 modal += '<div class="form-group"><label for="">Ciudad:</label><input id="inputCiudad" type="text" name="ciudad" placeholder="'+respJSON[k].ciudad+'" value="'+respJSON[k].ciudad+'"></div>';
-                modal += '<div class="form-group"><label for="">Imagen:</label><input id="inputImagen" type="text" name="imagen" placeholder="'+respJSON[k].imagen+'" value="'+respJSON[k].imagen+'"></div>';
-                modal += '<div class="form-group"><label for="">Rol:</label><select id="inputRol"><option value="'+respJSON[k].rol+'">'+respJSON[k].rol+'</option><option value="user">user</option</select><option value="admin">admin</option</select></div>';    
+                modal += '<div class="form-group"><label for="">Imagen:</label><input id="inputImagen" type="file" name="imagen" placeholder="'+respJSON[k].imagen+'" value="'+respJSON[k].imagen+'"></div>';
+                modal += '<span id="imgMssg"></span>';
+                modal += '<div class="form-group"><label for="">Rol:</label><select id="inputRol"><option value="'+respJSON[k].rol+'">'+respJSON[k].rol+'</option><option value="user">user</option><option value="admin">admin</option></select></div>';    
             }
             modal += '</form></div>';
             $("#divEditUser").html(modal);
@@ -167,36 +266,108 @@ function editUser(){
 
 /* Editar Usuario */
 var urlUpdateUserById = "./php/user/updateUserById.php";
+var urlUpdateUserImage = "./php/user/updateUserImage.php";
 function updateUser(){
+    /* Values of Inputs */
     var userId = $("#inputId").val();
     var userNombre = $("#inputNombre").val();
     var userApellido = $("#inputApellido").val();
     var userEmail = $("#inputEmail").val();
     var userProvincia = $("#inputProvincia").val();
     var userCiudad = $("#inputCiudad").val();
-    var userImagen = $("#inputImagen").val();
     var userRol = $("#inputRol").val();
 
-    $.ajax({
+    /* user Imagen = variable con el nombre de la imagen subida*/
+    var userImagen;
+    var thereisImage;
+    /*  En el caso de que no se quiera subir una imagen nueva... */
+    if($("#inputImagen").val() == ''){
+        thereisImage = "no";
+    } else {
+        thereisImage = "ok";
+        var image = document.getElementById("inputImagen").files[0];
+        var name = image.name;
+        var ext = name.split('.').pop().toLowerCase();
+        
+        if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
+            thereisImage = "ext";
+
+        var fsize = image.size;
+        if(fsize > 2000000)
+            thereisImage = "size";
+
+        /* Checks   
+        console.log("file => "+image);
+        console.log("Name => "+name);
+        console.log("Ext => "+ext);
+        console.log("fsize => "+fsize);
+        console.log("------------------");
+        */
+    }
+    
+
+    var alertExt = '<div class="alert alert-danger" role="alert"><strong>Oh snap! Extensión no válida!</strong></div>';
+    var alertSize = '<div class="alert alert-danger" role="alert"><strong>Oh snap! El tamaño de la imagen es demasiado grande</strong></div>';
+    switch(thereisImage){
+        case "ext":
+        $('#imgMssg').html(alertExt);
+        break;
+        case "size":
+        $('#imgMssg').html(alertSize);
+        break;
+        case "ok":
+            var form_data = new FormData();
+            form_data.append("file", document.getElementById('inputImagen').files[0]);
+                $.ajax({
+                    url: urlUpdateUserImage,
+                    method:"POST",
+                    data: form_data,
+                    dataType: "jsonp",
+                    jsonp: "callback",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend:function(){},   
+                    success:function(data)
+                    {
+                            //console.log("Status =>"+data.status);
+                            //console.log("Path =>"+data.imagen_name);
+                            if(data.status === "error")
+                                alert("No se ha podido subir la imagen, contacte con un Administrador!");
+                            else
+                                userImagen = data.imagen_name;
+                        
+                        /* En cuanto se suba la imagen se updatean los datos */
+                        requestUpdateUser(userId, userNombre, userApellido, userEmail, userProvincia, userCiudad, userImagen, userRol);
+                    }
+                });
+        break;
+        case "no":
+            /*  En el caso de que no se quiera subir una imagen nueva... */
+            requestUpdateUser(userId, userNombre, userApellido, userEmail, userProvincia, userCiudad, userImagen, userRol);  
+        break;
+    } /* End Switch */
+    //requestUpdateUser();
+}
+
+function requestUpdateUser(userId, userNombre, userApellido, userEmail, userProvincia, userCiudad, userImagen, userImagen, userRol){
+    if(userImagen == '')
+        var data = {userId:userId, userNombre:userNombre, userApellido:userApellido, userEmail:userEmail, userProvincia:userProvincia, userCiudad:userCiudad, userRol:userRol};
+    else
+        var data = {userId:userId, userNombre:userNombre, userApellido:userApellido, userEmail:userEmail, userProvincia:userProvincia, userCiudad:userCiudad, userImagen:userImagen, userRol:userRol};
+     
+        $.ajax({
         url: urlUpdateUserById,
         dataType: "jsonp",
         jsonp: "callback",
-        data: {
-            userId:userId,
-            userNombre:userNombre,
-            userApellido:userApellido,
-            userEmail:userEmail,
-            userProvincia:userProvincia,
-            userCiudad:userCiudad,
-            userImagen:userImagen,
-            userRol:userRol
-        },
+        data: data,
         beforeSend: function () {
             $("#formUpdateUser").html('Actualizando...');
         },
         success: function (respJSON) {
-            $('#modalEdit').modal('hide');
-            showUsers();
+                $('#modalEdit').modal('hide');
+                showUsers();
+
         },
         error:function (xhr, ajaxOptions, thrownError) {
             $("#formUpdateUser").html('No se ha podido actualizar el Usuario.');
