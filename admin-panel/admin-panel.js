@@ -109,13 +109,11 @@ function insertUser(){
     var userProvincia = $("#insertProvincia").val();
     var userCiudad = $("#insertCiudad").val();
     var userRol = $("#insertRol").val();
-    //var userImagen = $("#insertImagen").val();
-    console.log("password1 => "+userPassword);
-    console.log("Password2 => "+userRepeatPassword);
+
     /* user Imagen = variable con el nombre de la imagen subida*/
     var userImagen;
     var thereisImage;
-    /*  En el caso de que no se quiera subir una imagen nueva... */
+    /*  En el caso de que no se quiera subir una imagen nueva... Es Opcional. */
     if($("#insertImagen").val() == ''){
         thereisImage = "no";
     } else {
@@ -163,22 +161,21 @@ function insertUser(){
                     beforeSend:function(){},   
                     success:function(data)
                     {
-                        console.log("---- SUCCESS ----");
-                        console.log("Status =>"+data.status);
-                        console.log("Path =>"+data.imagen_name);
+                        //console.log("---- SUCCESS ----");
+                        //console.log("Status =>"+data.status);
+                        //console.log("Path =>"+data.imagen_name);
                         if(data.status === "error")
                             alert("No se ha podido subir la imagen, contacte con un Administrador!");
                         else
                             userImagen = data.imagen_name;
                         
                         /* En cuanto se suba la imagen se updatean los datos */
-                        //requestUpdateUser(userId, userNombre, userApellido, userEmail, userProvincia, userCiudad, userImagen, userImagen, userRol);
                         requestNewUser(userNombre, userApellido, userEmail, userPassword, userRepeatPassword, userProvincia, userCiudad, userImagen, userRol);
                     }
                 });
         break;
         case "no":
-        requestNewUser(userNombre, userApellido, userEmail, userPassword, userRepeatPassword, userProvincia, userCiudad, userImagen, userRol);
+            requestNewUser(userNombre, userApellido, userEmail, userPassword, userRepeatPassword, userProvincia, userCiudad, userImagen, userRol);
         break;
     }
     
@@ -438,13 +435,14 @@ function showGames(pages){
         success: function (respJSON) {
             var game = respJSON.data1;
             var array_page = respJSON.data2;
-
+            /* div = Modal de Añadir Juego */
             var div;
-            div = '<div class="form-group"><label for="">Nombre</label><input id="insertNombre" type="text" name="nombre" placeholder="nombre" value=""></div>';
-            div += '<div class="form-group"><label for="">Descripcion</label><input id="insertDescripcion" type="text" name="descripcion" placeholder="descripcion" value=""></div>';
-            div += '<div class="form-group"><label for="">Imagen</label><input id="insertImagen" type="email" name="imagen" placeholder="imagen" value=""></div>';
-            div += '<div class="form-group"><label for="">Video</label><input id="insertVideo" type="text" name="video" placeholder="video" value=""></div>';
-            div += '<div class="form-group"><label for="">Precio</label><input id="insertPrecio" type="number" name="precio" placeholder="precio" value=""></div>';
+            div = '<div class="form-group"><label for="">Nombre **</label><input id="insertNombre" type="text" name="nombre" placeholder="nombre" value=""></div>';
+            div += '<div class="form-group"><label for="">Descripcion **</label><textarea id="insertDescripcion" class="form-control" type="text" name="descripcion" placeholder="descripcion" rows="5"></textarea></div>';
+            div += '<div class="form-group"><label for="">Imagen **</label><input id="insertImagen" type="file" name="imagen" placeholder="imagen" value=""></div>';
+            div += '<div class="form-group"><label for="">Video </label><input id="insertVideo" type="file" name="video" placeholder="video" value=""></div>';
+            div += '<div class="form-group"><label for="">Precio **</label><input id="insertPrecio" type="number" name="precio" placeholder="precio" value=""></div>';
+            div += '<span id="alertMssgNewGame"></span>';
             var buttonSubmitModalAdd = '<button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button><button id="btnInsertGame" type="button" class="btn btn-success">Guardar Game</button>';
             var buttonAddUser = "<a class='btn btn-success' data-toggle='modal' data-target='#modalAdd'><i class='fas fa-user-plus'></i> Añadir Juego</a>";
             var buttonDeleteModal = '<button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button><button id="deleteGame" type="button" class="btn btn-danger">Eliminar Juego</button>';
@@ -454,7 +452,7 @@ function showGames(pages){
             table+= "<table>";
             table += "<tbody><tr> <td>id</td> <td>nombre</td> <td>descripcion</td> <td>imagen</td> <td>video</td> <td>precio</td> </tr> </tr> </tbody>";
             for(var k = 0; k < game.length; k++){
-                table += "<tr> <td>"+game[k].id_articulo_juego+"</td> <td>"+game[k].nombre+"</td> <td>"+game[k].descripcion+"</td> <td>"+game[k].imagen+"</td> <td>"+game[k].video+"</td> <td>"+game[k].precio+"</td>";
+                table += "<tr> <td>"+game[k].id_articulo_juego+"</td> <td>"+game[k].nombre+"</td> <td>"+game[k].descripcion+"</td> <td>"+game[k].imagen+"</td> <td>"+game[k].video+"</td> <td>"+game[k].precio+"€</td>";
                 table += "<td> <a class='editarGame btn btn-warning' data-toggle='modal' data-target='#modalEdit' data-idGame='"+game[k].id_articulo_juego+"'><i class='fas fa-edit'></i> Editar</a> </td>";
                 table += '<td> <a class="btn btn-danger" onclick="putIdInInput('+game[k].id_articulo_juego+',\'' + game[k].nombre + '\')" data-toggle="modal" data-target="#modalDelete"><i class="fas fa-trash-alt"></i> Eliminar</a> </td> </tr>';
             }
@@ -487,7 +485,8 @@ function passPaginationGame(){
     var page = $(this).attr("id");
     showGames(page);
 }
-var urlInsertNewGame = "./php/game/insertNewGame.php"
+var urlInsertNewGame = "./php/game/insertNewGame.php";
+var urlUploadGameImage = "./php/game/uploadGameImage.php";
 function insertNewGame(){
     var gameNombre = $("#insertNombre").val();
     var gameDescripcion = $("#insertDescripcion").val();
@@ -495,6 +494,79 @@ function insertNewGame(){
     var gameVideo = $("#insertVideo").val();
     var gamePrecio = $("#insertPrecio").val();
 
+    /* user Imagen = variable con el nombre de la imagen subida*/
+    var gameImagen;
+    var thereisImage;
+
+    if($("#insertImagen").val() == ''){
+        thereisImage = "no";
+    } else {
+        thereisImage = "ok";
+        var image = document.getElementById("insertImagen").files[0];
+        var name = image.name;
+        var ext = name.split('.').pop().toLowerCase();
+        
+        if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
+            thereisImage = "ext";
+
+        var fsize = image.size;
+        if(fsize > 2000000)
+            thereisImage = "size";
+        
+        /* Checks   
+        console.log("file => "+image);
+        console.log("Name => "+name);
+        console.log("Ext => "+ext);
+        console.log("fsize => "+fsize);
+        console.log("------------------");
+        */
+    }
+
+    var alertExt = '<div class="alert alert-danger" role="alert"><strong>Oh snap! Extensión no válida!</strong></div>';
+    var alertSize = '<div class="alert alert-danger" role="alert"><strong>Oh snap! El tamaño de la imagen es demasiado grande</strong></div>';
+    var alertNo = '<div class="alert alert-danger" role="alert"><strong>Oh!</strong> Es obligatorio indicar una imagen.</div>';
+    switch(thereisImage){
+        case "ext":
+        $('#alertMssgNewGame').html(alertExt);
+        break;
+        case "size":
+        $('#alertMssgNewGame').html(alertSize);
+        break;
+        case "ok":
+            var form_data = new FormData();
+            form_data.append("file", document.getElementById('insertImagen').files[0]);
+                $.ajax({
+                    url: urlUploadGameImage,
+                    method:"POST",
+                    data: form_data,
+                    dataType: "jsonp",
+                    jsonp: "callback",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend:function(){},   
+                    success:function(data)
+                    {
+                        //console.log("---- SUCCESS ----");
+                        //console.log("Status => "+data.status);
+                        //console.log("Path => "+data.imagen_name);
+                        if(data.status === "error")
+                            alert("No se ha podido subir la imagen, contacte con un Administrador!");
+                        else
+                            gameImagen = data.imagen_name;
+                        
+                        /* En cuanto se suba la imagen se updatean los datos */
+                        requestNewGame(gameNombre, gameDescripcion, gameImagen, gameVideo, gamePrecio);
+                    }
+                });
+        break;
+        case "no":
+        $('#alertMssgNewGame').html(alertNo);
+        break;
+    }
+}
+
+function requestNewGame(gameNombre, gameDescripcion, gameImagen, gameVideo, gamePrecio){
     $.ajax({
         url: urlInsertNewGame,
         dataType: "jsonp",
@@ -509,9 +581,23 @@ function insertNewGame(){
         beforeSend: function () {
             //$("#divAdd").html('Creando Usuario...');
         },
-        success: function (respJSON) {
-            $('#modalAdd').modal('hide');
-            showGames();
+        success: function (data) {
+            var alertFalse = '<div class="alert alert-danger" role="alert"><strong>Error de Servidor.</strong> Contacte con un administrador.</div>';
+            var alertObli = '<div class="alert alert-danger" role="alert"><strong>Ojito con los ** !</strong> Rellena los campos obligatorios.</div>';
+            switch(data.status){
+                case "true":
+                    $('#modalAdd').modal('hide');
+                    showGames();
+                break;
+                case "false":
+                $('#alertMssgNewGame').html(alertFalse);
+                break;
+                case "obli":
+                $('#alertMssgNewGame').html(alertObli);
+                break;
+            }
+            
+            
         },
         error:function (xhr, ajaxOptions, thrownError) {
             $("#divAdd").html('No se ha podido añadir Usuarios.'+xhr);
@@ -559,11 +645,11 @@ function editFormGame(){
             for(var k = 0; k < respJSON.length; k++){
                 modal += '<div class="form-group"><label for="">id:</label><input id="inputId" type="text" name="id" placeholder="'+respJSON[k].id_articulo_juego+'" value="'+respJSON[k].id_articulo_juego+'" readonly></div>';    
                 modal += '<div class="form-group"><label for="">Nombre:</label><input id="inputNombre" type="text" name="nombre" placeholder="'+respJSON[k].nombre+'" value="'+respJSON[k].nombre+'"></div>';
-                modal += '<div class="form-group"><label for="">Descripcion:</label><input id="inputDescripcion" type="text" name="descripcion" placeholder="'+respJSON[k].descripcion+'" value="'+respJSON[k].descripcion+'"></div>';
-                modal += '<div class="form-group"><label for="">Imagen:</label><input id="inputImagen" type="email" name="imagen" placeholder="'+respJSON[k].imagen+'" value="'+respJSON[k].imagen+'"></div>';
-                modal += '<div class="form-group"><label for="">Video:</label><input id="inputVideo" type="text" name="video" placeholder="'+respJSON[k].video+'" value="'+respJSON[k].video+'"></div>';
+                modal += '<div class="form-group"><label for="">Descripcion:</label><textarea class="form-control" id="inputDescripcion" type="text" name="descripcion" placeholder="'+respJSON[k].descripcion+'" rows="5" value="'+respJSON[k].descripcion+'">'+respJSON[k].descripcion+'</textarea></div>';
+                modal += '<div class="form-group"><label for="">Imagen:</label><input id="inputImagen" type="file" name="imagen" placeholder="'+respJSON[k].imagen+'" value="'+respJSON[k].imagen+'"></div>';
+                modal += '<div class="form-group"><label for="">Video:</label><input id="inputVideo" type="file" name="video" placeholder="'+respJSON[k].video+'" value="'+respJSON[k].video+'"></div>';
                 modal += '<div class="form-group"><label for="">Precio:</label><input id="inputPrecio" type="number" name="precio" placeholder="'+respJSON[k].precio+'" value="'+respJSON[k].precio+'"></div>';
-                    
+                modal += '<span id="alertaMssgUpdate"></span>';  
             }
             modal += '</form></div>';
             $("#divEditUser").html(modal);
@@ -581,22 +667,90 @@ function updateGame(){
     var gameId = $("#inputId").val();
     var gameNombre = $("#inputNombre").val();
     var gameDescripcion = $("#inputDescripcion").val();
-    var gameImagen = $("#inputImagen").val();
+    //var gameImagen = $("#inputImagen").val();
     var gameVideo = $("#inputVideo").val();
     var gamePrecio = $("#inputPrecio").val();
 
+    /* user Imagen = variable con el nombre de la imagen subida*/
+    var gameImagen;
+    var thereisImage;
+    /*  En el caso de que no se quiera subir una imagen nueva... */
+    if($("#inputImagen").val() == ''){
+        thereisImage = "no";
+    } else {
+        thereisImage = "ok";
+        var image = document.getElementById("inputImagen").files[0];
+        var name = image.name;
+        var ext = name.split('.').pop().toLowerCase();
+        
+        if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
+            thereisImage = "ext";
+
+        var fsize = image.size;
+        if(fsize > 2000000)
+            thereisImage = "size";
+        /*
+        console.log("file => "+image);
+        console.log("Name => "+name);
+        console.log("Ext => "+ext);
+        console.log("fsize => "+fsize);
+        console.log("------------------");
+        */
+    }
+
+    var alertExt = '<div class="alert alert-danger" role="alert"><strong>Oh snap! Extensión no válida!</strong></div>';
+    var alertSize = '<div class="alert alert-danger" role="alert"><strong>Oh snap! El tamaño de la imagen es demasiado grande</strong></div>';
+    switch(thereisImage){
+        case "ext":
+        $('#alertaMssgUpdate').html(alertExt);
+        break;
+        case "size":
+        $('#alertaMssgUpdate').html(alertSize);
+        break;
+        case "ok":
+            var form_data = new FormData();
+            form_data.append("file", document.getElementById('inputImagen').files[0]);
+                $.ajax({
+                    url: urlUploadGameImage,
+                    method:"POST",
+                    data: form_data,
+                    dataType: "jsonp",
+                    jsonp: "callback",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend:function(){},   
+                    success:function(data)
+                    {
+                            //console.log("Status =>"+data.status);
+                            //console.log("Path =>"+data.imagen_name);
+                            if(data.status === "error")
+                                alert("No se ha podido subir la imagen, contacte con un Administrador!");
+                            else
+                                gameImagen = data.imagen_name;
+                        
+                        /* En cuanto se suba la imagen se updatean los datos */
+                        requestUpdateGame(gameId, gameNombre, gameDescripcion, gameImagen, gameVideo, gamePrecio);
+                    }
+                });
+        break;
+        case "no":
+            requestUpdateGame(gameId, gameNombre, gameDescripcion, gameImagen, gameVideo, gamePrecio);
+        break;
+    } /* End Switch */
+}
+
+function requestUpdateGame(gameId, gameNombre, gameDescripcion, gameImagen, gameVideo, gamePrecio){
+    if(gameImagen == '')
+        var data = {gameId:gameId, gameNombre:gameNombre, gameDescripcion:gameDescripcion, gameVideo:gameVideo, gamePrecio:gamePrecio};
+    else
+        var data = {gameId:gameId, gameNombre:gameNombre, gameDescripcion:gameDescripcion, gameImagen:gameImagen, gameVideo:gameVideo, gamePrecio:gamePrecio};
+    console.log(data); 
     $.ajax({
         url: urlUpdateGameById,
         dataType: "jsonp",
         jsonp: "callback",
-        data: {
-            gameId:gameId,
-            gameNombre:gameNombre,
-            gameDescripcion:gameDescripcion,
-            gameImagen:gameImagen,
-            gameVideo:gameVideo,
-            gamePrecio:gamePrecio
-        },
+        data: data,
         beforeSend: function () {
             $("#formUpdateUser").html('Actualizando...');
         },
@@ -746,22 +900,48 @@ function editFormKey(){
             $("#divEditUser").html('Cargando...');
         },
         success: function (respJSON) {
-            var modal = "<div id='formulario' ";
-            modal += "<form id='formUpdateUser' method='post'>";
+            
+            var modal = "<form id='formUpdateUser' method='post'>";
             for(var k = 0; k < respJSON.length; k++){
                 modal += '<div class="form-group"><label for="">id:</label><input id="inputId" type="number" name="id" placeholder="'+respJSON[k].id_llaves+'" value="'+respJSON[k].id_llaves+'" readonly></div>';    
                 modal += '<div class="form-group"><label for="">Llave:</label><input id="inputLlave" type="text" name="llave" placeholder="'+respJSON[k].llave+'" value="'+respJSON[k].llave+'"></div>';
-                modal += '<div class="form-group"><label for="">Id Juego:</label><input id="inputIdJuego" type="number" name="inputIdJuego" placeholder="'+respJSON[k].id_articulo_juego+'" value="'+respJSON[k].id_articulo_juego+'"></div>';
-
+                //modal += '<div class="form-group"><label for="">Id Juego:</label><input id="inputIdJuego" type="number" name="inputIdJuego" placeholder="'+respJSON[k].id_articulo_juego+'" value="'+respJSON[k].id_articulo_juego+'"></div>';
             }
-            modal += '</form></div>';
+            modal += '</form>';
             $("#divEditUser").html(modal);
             $('#updateKey').click(updateKey);
+            
         },
         error:function (xhr, ajaxOptions, thrownError) {
             $("#divEditUser").html('No se ha podido cargar el Formulario.');
           }
     }); 
+    rellenarComboBox(idKey);
+}
+
+var urlRellenarComboBox = "./php/key/rellenarComboBox.php";
+function rellenarComboBox(idKey){
+    $.ajax({
+        url: urlRellenarComboBox,
+        dataType: "jsonp",
+        jsonp: "callback",
+        data: {idKey:idKey},
+        beforeSend: function () {
+            $("#divEditUser").html('Cargando...');
+        },
+        success: function (respJSON) {
+            var llaves = respJSON.data;
+            var comboBox = '<div class="form-group"><label for="">Id Juego:</label><select id="inputIdJuego">';
+            for(var k = 0; k < llaves.length; k++){
+                comboBox += '<option value="'+llaves[k].id_articulo_juego+'">"'+llaves[k].nombre+'"</option>';
+            }
+            comboBox += '</select></div>';
+            $("#divEditUser").append(comboBox);
+        },
+        error:function (xhr, ajaxOptions, thrownError) {
+            $("#divEditUser").html('No se ha podido cargar el Formulario.');
+          }
+    });
 }
 
 /* EDITAR JUEGO */
