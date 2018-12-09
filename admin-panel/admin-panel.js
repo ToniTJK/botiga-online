@@ -6,15 +6,16 @@ $( document ).ready(function() {
 
     /* Mostrar Users al arribar a la página.. */
     $('#table').html(showUsers);
-    
 });
 
 /* 
 //////////////////////////////////////////   Users   ////////////////////////////////////////////// 
 */
 /* Mostrar Usuarios */
+/* Variable para que el active de la paginacion se compruebe la primera vez */
+var onceUser = true;
 var urlShowUsers = "./php/user/showUsers.php";
-function showUsers(pages){
+function showUsers(pages = 1){
     /* CHECK NAV */
     var isActiveUser = $("#user").hasClass("active");
 
@@ -23,10 +24,10 @@ function showUsers(pages){
         $("#game").removeClass("active"); 
         $("#key").removeClass("active");  
     }
-    
-    /* Prevent null / undefined of pages */
-    if (pages === null || typeof pages === 'undefined' || !pages ) 
-        pages = 0;
+
+    if (typeof pages === "undefined" || pages === null) { 
+        pages = 1; 
+      }
     
     $.ajax({
         url: urlShowUsers,
@@ -38,7 +39,7 @@ function showUsers(pages){
         },
         success: function (respJSON) {
             var usuarios = respJSON.data1;
-            var array_page = respJSON.data2;
+            var total_pages = respJSON.data2;
             /* div de Añadir Usuario */
             var div;
             div = '<div class="form-group"><label for="">Nombre</label><input id="insertNombre" type="text" name="nombre" placeholder="nombre" value=""></div>';
@@ -65,10 +66,17 @@ function showUsers(pages){
                 table += '<td> <a class="btn btn-danger" onclick="putIdInInput('+usuarios[k].id_usuario+',\'' + usuarios[k].nombre + '\')" data-toggle="modal" data-target="#modalDelete"><i class="fas fa-trash-alt"></i> Eliminar</a> </td> </tr>';
             }
             table += "</table></div>";
+            
+            /* PAGINATION */
+            var output_pagination = "<span id='divPagination'>";
+            for(var i=1; i<=total_pages; i++){
+              output_pagination += "<span class='pagination pagination_link_user' id='"+i+"'>"+i+"</span>"; 
+            }
+            output_pagination += "</span>";
 
             /* AÑADIR TABLA */
             $("#table").html(buttonAddUser);
-            $("#table").append(array_page);
+            $("#table").append(output_pagination);
             $("#table").append(table);
             
             $('#formInsertUser').html(div);
@@ -83,7 +91,8 @@ function showUsers(pages){
 
             /* PAGINATION */ 
             $('.pagination_link_user').click(passPaginationUser);
-            
+            checkPaginationUser(pages)
+               
         },
         error:function (xhr, ajaxOptions, thrownError) {
             $("#table").html('No se ha podido añadir los Usuarios.');
@@ -93,8 +102,33 @@ function showUsers(pages){
 
 /* PAGINATION USERS */
 function passPaginationUser(){
-    var page = $(this).attr("id");
+    var page = $(this).attr("id"); 
     showUsers(page);
+}
+
+function checkPaginationUser(pages){
+    /* PAGINATION ACTIVE */
+    if(onceUser == true ){
+        $("#divPagination .pagination").each(function( i ) {
+            if(i === 0){
+                $(this).addClass('activePage');
+            }
+        });  
+        onceUser = false;
+    } else {
+        pages = pages - 1;
+        $("#divPagination .pagination").each(function( i ) {
+            var isPageActive = $(this).hasClass("activePage");
+            console.log("I:"+i+ " p: "+pages);
+            if(i == pages){
+                $(this).addClass("activePage"); 
+                console.log("add");
+            } else {
+                $(this).removeClass("activePage"); 
+                console.log("remove");
+            }
+        }); 
+    } 
 }
 
 var urlInsertUser = "./php/user/insertNewUser.php";
@@ -408,8 +442,9 @@ function deleteUser(){
 //////////////////////////////////////////   GAMES   ////////////////////////////////////////////// 
 */
 
-var urlShowGames = "./php/game/showGames.php"
-function showGames(pages){
+var urlShowGames = "./php/game/showGames.php";
+var onceGames = true;
+function showGames(pages = 1){
     /* CHECK NAV */
     var isActiveGame = $("#game").hasClass("active");
 
@@ -434,7 +469,7 @@ function showGames(pages){
         },
         success: function (respJSON) {
             var game = respJSON.data1;
-            var array_page = respJSON.data2;
+            var total_pages = respJSON.data2;
             /* div = Modal de Añadir Juego */
             var div;
             div = '<div class="form-group"><label for="">Nombre **</label><input id="insertNombre" type="text" name="nombre" placeholder="nombre" value=""></div>';
@@ -457,9 +492,17 @@ function showGames(pages){
                 table += '<td> <a class="btn btn-danger" onclick="putIdInInput('+game[k].id_articulo_juego+',\'' + game[k].nombre + '\')" data-toggle="modal" data-target="#modalDelete"><i class="fas fa-trash-alt"></i> Eliminar</a> </td> </tr>';
             }
             table += "</table></div>";
+
+            /* PAGINATION */
+            var output_pagination = "<span id='divPagination'>";
+            for(var i=1; i<=total_pages; i++){
+              output_pagination += "<span class='pagination pagination_link_game' id='"+i+"'>"+i+"</span>"; 
+            }
+            output_pagination += "</span>";
+
             /* AÑADIR TABLA */
             $("#table").html(buttonAddUser);
-            $("#table").append(array_page);
+            $("#table").append(output_pagination);
             $("#table").append(table);
             $('#formInsertUser').html(div);
             /* AÑADIR BOTONES EN LOS MODALES */
@@ -472,7 +515,7 @@ function showGames(pages){
             $('#deleteGame').click(deleteGame);
             /* PAGINATION */ 
             $('.pagination_link_game').click(passPaginationGame);
-            
+            checkPaginationGames(pages);
         },
         error:function (xhr, ajaxOptions, thrownError) {
             $("#table").html('No se ha podido añadir los Usuarios.');
@@ -485,6 +528,33 @@ function passPaginationGame(){
     var page = $(this).attr("id");
     showGames(page);
 }
+
+function checkPaginationGames(pages){
+    /* PAGINATION ACTIVE */
+    if(onceGames == true ){
+        $("#divPagination .pagination_link_game").each(function( i ) {
+            if(i === 0){
+                $(this).addClass('activePage');
+                console.log("I:"+i+ " p: "+pages);
+            }
+        });  
+        onceGames = false;
+    } else {
+        pages = pages - 1;
+        $("#divPagination .pagination_link_game").each(function( i ) {
+            var isPageActive = $(this).hasClass("activePage");
+            console.log("I:"+i+ " p: "+pages);
+            if(i == pages){
+                $(this).addClass("activePage"); 
+                console.log("add");
+            } else {
+                $(this).removeClass("activePage"); 
+                console.log("remove");
+            }
+        }); 
+    } 
+}
+
 var urlInsertNewGame = "./php/game/insertNewGame.php";
 var urlUploadGameImage = "./php/game/uploadGameImage.php";
 function insertNewGame(){
@@ -769,6 +839,7 @@ function requestUpdateGame(gameId, gameNombre, gameDescripcion, gameImagen, game
 */
 
 var urlShowKeys = "./php/key/showKeys.php";
+var onceKeys = true;
 function showKeys(pages){
     /* CHECK NAV */
     var isActiveKey = $("#key").hasClass("active");
@@ -793,10 +864,10 @@ function showKeys(pages){
         },
         success: function (respJSON) {
             var llaves = respJSON.data1;
-            var array_page = respJSON.data2;
+            var total_pages = respJSON.data2;
             var div;
-            div = '<div class="form-group"><label for="">Llave</label><input id="insertLlave" type="text" name="llave" placeholder="llave" value=""></div>';
-            div += '<div class="form-group"><label for="">id del juego</label><input id="insertIdJuego" type="text" name="idJuego" placeholder="idJuego" value=""></div>';
+            div = '<div class="form-group"><label for="">Llave **</label><input id="insertLlave" type="text" name="llave" placeholder="llave" value=""></div>';
+            div += '<span id="mssgNewKey"></span>';
             var buttonSubmitModalAdd = '<button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button><button id="btnInsertKey" type="button" class="btn btn-success">Guardar Llave</button>';
             var buttonAddUser = "<a class='btn btn-success' data-toggle='modal' data-target='#modalAdd'><i class='fas fa-user-plus'></i> Añadir Llave</a>";
             var buttonDeleteModal = '<button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button><button id="deleteKey" type="button" class="btn btn-danger">Eliminar Llave</button>';
@@ -811,9 +882,17 @@ function showKeys(pages){
                 table += '<td> <a class="btn btn-danger" onclick="putIdInInput('+llaves[k].id_llaves+',\'' + llaves[k].nombre + '\')" data-toggle="modal" data-target="#modalDelete"><i class="fas fa-trash-alt"></i> Eliminar</a> </td> </tr>';
             }
             table += "</table></div>";
+
+            /* PAGINATION */
+            var output_pagination = "<span id='divPagination'>";
+            for(var i=1; i<=total_pages; i++){
+              output_pagination += "<span class='pagination pagination_link_key' id='"+i+"'>"+i+"</span>"; 
+            }
+            output_pagination += "</span>";
+
             /* AÑADIR TABLA */
             $("#table").html(buttonAddUser);
-            $("#table").append(array_page);
+            $("#table").append(output_pagination);
             $("#table").append(table);
             $('#formInsertUser').html(div);
             /* AÑADIR BOTONES EN LOS MODALES */
@@ -826,6 +905,9 @@ function showKeys(pages){
             $('#deleteKey').click(deleteKey);  
             /* PAGINATION */ 
             $('.pagination_link_key').click(passPaginationKey);
+            checkPaginationKeys(pages);
+            var formType = "add";
+            rellenarComboBox(formType);
         },
         error:function (xhr, ajaxOptions, thrownError) {
             $("#table").html('No se ha podido añadir los Usuarios.');
@@ -839,10 +921,36 @@ function passPaginationKey(){
     showKeys(page);
 }
 
+function checkPaginationKeys(pages){
+    /* PAGINATION ACTIVE */
+    if(onceKeys == true ){
+        $("#divPagination .pagination").each(function( i ) {
+            if(i === 0){
+                $(this).addClass('activePage');
+            }
+        });  
+        onceKeys = false;
+    } else {
+        pages = pages - 1;
+        $("#divPagination .pagination").each(function( i ) {
+            var isPageActive = $(this).hasClass("activePage");
+            console.log("I:"+i+ " p: "+pages);
+            if(i == pages){
+                $(this).addClass("activePage"); 
+                console.log("add");
+            } else {
+                $(this).removeClass("activePage"); 
+                console.log("remove");
+            }
+        }); 
+    } 
+}
+
 var urlInsertNewKey = "./php/key/insertNewKey.php"
 function insertNewKey(){
     var keyLlave = $("#insertLlave").val();
-    var keyIdJuego = $("#insertIdJuego").val();
+    var keyIdJuego = $("#inputIdJuego").val();
+    //var keyIdJuego = $("#insertIdJuego").val();
 
     $.ajax({
         url: urlInsertNewKey,
@@ -856,8 +964,20 @@ function insertNewKey(){
             //$("#divAdd").html('Creando Usuario...');
         },
         success: function (respJSON) {
-            $('#modalAdd').modal('hide');
-            showKeys();
+            var alertObli = '<div class="alert alert-danger" role="alert"><strong>Ojo con los **.</strong> Tienes que rellenar los campos requeridos.</div>';
+            var alertFalse = '<div class="alert alert-danger" role="alert"><strong>Oh!</strong> Error de Servidor. Contacte con un administrador.</div>';
+                switch(respJSON.status){
+                    case "true":
+                        $('#modalAdd').modal('hide');
+                        showKeys();
+                    break;
+                    case "obli":
+                        $('#mssgNewKey').html(alertObli);
+                    break;
+                    case "false":
+                        $('#mssgNewKey').html(alertFalse);
+                    break;
+                }
         },
         error:function (xhr, ajaxOptions, thrownError) {
             $("#divAdd").html('No se ha podido añadir Llaves.'+xhr);
@@ -916,27 +1036,35 @@ function editFormKey(){
             $("#divEditUser").html('No se ha podido cargar el Formulario.');
           }
     }); 
-    rellenarComboBox(idKey);
+    var formType = "edit";
+    rellenarComboBox(formType);
+    /* coger el valor del select option // Sim esto se confunde con el select option de Añadir llave. */
+    $(document).on('change','#inputIdJuego',function(){
+        selectedTextInputKey = $(this).val();
+   });
 }
 
 var urlRellenarComboBox = "./php/key/rellenarComboBox.php";
-function rellenarComboBox(idKey){
+function rellenarComboBox(formType){
     $.ajax({
         url: urlRellenarComboBox,
         dataType: "jsonp",
         jsonp: "callback",
-        data: {idKey:idKey},
+        data: {},
         beforeSend: function () {
             $("#divEditUser").html('Cargando...');
         },
         success: function (respJSON) {
-            var llaves = respJSON.data;
-            var comboBox = '<div class="form-group"><label for="">Id Juego:</label><select id="inputIdJuego">';
-            for(var k = 0; k < llaves.length; k++){
-                comboBox += '<option value="'+llaves[k].id_articulo_juego+'">"'+llaves[k].nombre+'"</option>';
+            var juegos = respJSON.data;
+            var comboBox = '<div class="form-group"><label for="">Id del Juego:</label><select class="inputIdJuego2" id="inputIdJuego">';
+            for(var k = 0; k < juegos.length; k++){
+                comboBox += '<option value="'+juegos[k].id_articulo_juego+'">"'+juegos[k].nombre+'"</option>';
             }
             comboBox += '</select></div>';
-            $("#divEditUser").append(comboBox);
+            if(formType == "add")
+                $("#formInsertUser").append(comboBox);
+            else
+                $("#divEditUser").append(comboBox);
         },
         error:function (xhr, ajaxOptions, thrownError) {
             $("#divEditUser").html('No se ha podido cargar el Formulario.');
@@ -946,11 +1074,12 @@ function rellenarComboBox(idKey){
 
 /* EDITAR JUEGO */
 var urlUpdateKeyById = "./php/key/updateKeyById.php";
+var selectedTextInputKey;
 function updateKey(){
     var keyId = $("#inputId").val();
     var keyLlave = $("#inputLlave").val();
-    var inputIdJuego = $("#inputIdJuego").val();
-
+    //var keyIdJuego = $("#inputIdJuego").val();
+    alert(keyId +" "+ keyLlave +" "+ selectedTextInputKey +" "+ $(".inputIdJuego2").val());
     $.ajax({
         url: urlUpdateKeyById,
         dataType: "jsonp",
@@ -958,7 +1087,7 @@ function updateKey(){
         data: {
             keyId:keyId,
             keyLlave:keyLlave,
-            inputIdJuego:inputIdJuego
+            keyIdJuego:selectedTextInputKey
         },
         beforeSend: function () {
             $("#formUpdateUser").html('Actualizando...');

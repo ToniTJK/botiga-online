@@ -5,7 +5,7 @@ require "../../../baseDatos/dbConect.php";
 
 $keyId = $_GET['keyId'];
 $keyLlave = $_GET['keyLlave'];
-$keyIdJuego = $_GET['inputIdJuego'];
+$keyIdJuego = $_GET['keyIdJuego'];
 
 
 $output = array();

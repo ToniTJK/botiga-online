@@ -3,9 +3,7 @@
 header('Content-type:application/javascript');
 require "../../../baseDatos/dbConect.php";
 
-$keyId = $_GET['keyId'];
-
-$sql = "SELECT * FROM `llaves` INNER JOIN articulos_juegos ON llaves.id_articulo_juego = articulos_juegos.id_articulo_juego ORDER BY id_llaves DESC";
+$sql = "SELECT id_articulo_juego, nombre FROM `articulos_juegos` ORDER BY id_articulo_juego DESC";
 $result = mysqli_query($cnx, $sql);
 
 if (mysqli_num_rows($result) > 0){
