@@ -1,3 +1,78 @@
+/* HEADER */
+.divclick{
+    cursor: pointer;
+}
+
+.divclick:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(255,255,255,0.4);
+  -webkit-transition: none;
+     -moz-transition: none;
+          transition: none;
+}
+.divclick:hover:after {
+  width: 120%;
+  background-color: rgba(255,255,255,0);
+  
+  -webkit-transition: all 0.4s ease-in-out;
+     -moz-transition: all 0.4s ease-in-out;
+          transition: all 0.4s ease-in-out;
+}
+/*header*/
+.cabecera{
+  margin-top: 0px!important;
+  width: 100%;
+  background-color: #aedf53;
+}
+ul{
+  width: 15%;
+  margin: 0 auto;
+  padding: 0;
+  margin-left: 80%;
+}
+nav li{
+  list-style: none;
+  display: inline-block;
+  padding: 20px;
+}
+nav li:hover{
+  background-color: #6c971c;
+}
+ul li a{
+  color:#fff;
+  text-decoration: none;
+}
+.toggle{
+  background-color: #6c971c;  
+  width: 100%;
+  padding: 10px 20px;
+  text-align: right;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 30px;
+  display:none;
+}
+
+.logo-grande .logo{
+    float: left;
+    margin-left: 40px;
+      width: 100px;
+      height: 70px;
+  }
+ol{
+  font-size: 15pt;
+}
+div div ul li {
+  margin-left: 0px;
+}
+
+/* HEADER */
+
 input, select, option{
     width: 100%;
     padding: 5px 15px;
@@ -64,16 +139,48 @@ tbody:first-child td{
     margin-left: 5px;
 }
 
-
-@media only screen and (max-width: 1024px) {
-    /*
-    a.editarUsuario.btn.btn-warning, a.btn.btn-danger{
-        display: inline-block;
-    }
-    */
-
-    .pagination_link{
-        margin-top: 10px;
-    }
-    
+.activePage{
+    background-color: #666;
+    color: white;
+    cursor: pointer;
 }
+
+.activePage:hover {
+    background-color: #666;
+    color: white;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px)
+  {
+    .cercadorr{
+      display: none;
+    }
+  
+    .toggle {
+      display: block;
+      background-color: #aedf53;
+    }
+  
+    ul{
+      width: 100%;
+      margin:0 auto;
+    }
+    ul{
+      display: none;
+      text-align: center;
+      background-color: #6c971c;  
+    }
+    .logo-grande{
+      display: none;
+    }
+    .logo{
+      float: left;
+        width: 58px;
+        height: 41px;
+    }
+    nav li:active{
+    background-color: #d7efa9;
+    color:#6c971c;
+  }
+  }
