@@ -9,21 +9,25 @@ $gameImagen = $_GET['gameImagen'];
 $gameVideo = $_GET['gameVideo'];
 $gamePrecio = $_GET['gamePrecio'];
 
-$output = array();
-$sql = "INSERT INTO articulos_juegos (nombre,descripcion,imagen,video,precio) VALUES (?, ?, ?, ?, ?)";
+$final = array();
+if(!empty($gameNombre) && !empty($gameDescripcion) && !empty($gameImagen) && !empty($gamePrecio)){
+    $sql = "INSERT INTO articulos_juegos (nombre,descripcion,imagen,video,precio) VALUES (?, ?, ?, ?, ?)";
 
-$result = mysqli_prepare($cnx, $sql);
-mysqli_stmt_bind_param($result, "ssssd", $gameNombre, $gameDescripcion, $gameImagen, $gameVideo, $gamePrecio);
+    $result = mysqli_prepare($cnx, $sql);
+    mysqli_stmt_bind_param($result, "ssssd", $gameNombre, $gameDescripcion, $gameImagen, $gameVideo, $gamePrecio);
+    
+    if (!(mysqli_stmt_execute($result)))
+        $status = "false";
+    else
+        $status = "true";
+} else { $status = "obli"; }
 
-// $check = mysqli_stmt_execute($result);
-
-if (!(mysqli_stmt_execute($result)))
-    $output[] = "No se ha podido añadir el Juego.";
-else
-    $output[] = "Se ha añadido correctamente!";
 
 
-$json = json_encode($output);
+
+
+    $final['status'] = $status;
+    $json = json_encode($final);
 
 if(isset($_GET['callback'])){
    echo $_GET['callback'].'('. $json.')';

@@ -33,12 +33,12 @@ $page_result = mysqli_query($cnx, $page_query);
 $total_records = mysqli_num_rows($page_result);
 $total_pages = ceil($total_records/$limit_page);
     
-    for($i=1; $i<=$total_pages; $i++){
-        $output_pagination .= "<span class='pagination_link_user' id='".$i."'>".$i."</span>"; 
-    }
+    //for($i=1; $i<=$total_pages; $i++){
+    //   $output_pagination .= "<span class='pagination_link_user' id='".$i."'>".$i."</span>"; 
+    //}
 
 $final['data1'] = $output;
-$final['data2'] = $output_pagination;
+$final['data2'] = $total_pages;
 $json = json_encode($final);
 
     if(isset($_GET['callback'])){

@@ -5,23 +5,21 @@ require "../../../baseDatos/dbConect.php";
 
 $keyLlave = $_GET['keyLlave'];
 $keyIdJuego = $_GET['keyIdJuego'];
+$final = array();
 
+if(!empty($keyLlave)){
+    $sql = "INSERT INTO llaves (llave,id_articulo_juego) VALUES (?, ?)";
+    $result = mysqli_prepare($cnx, $sql);
+    mysqli_stmt_bind_param($result, "si", $keyLlave, $keyIdJuego);
+    if (!(mysqli_stmt_execute($result)))
+        $status = "false";
+    else
+        $status = "true";
 
-$output = array();
-$sql = "INSERT INTO llaves (llave,id_articulo_juego) VALUES (?, ?)";
+} else { $status = "obli"; }
 
-$result = mysqli_prepare($cnx, $sql);
-mysqli_stmt_bind_param($result, "si", $keyLlave, $keyIdJuego);
-
-// $check = mysqli_stmt_execute($result);
-
-if (!(mysqli_stmt_execute($result)))
-    $output[] = "No se ha podido añadir la llave.";
-else
-    $output[] = "Se ha añadido correctamente!";
-
-
-$json = json_encode($output);
+    $final['status'] = $status;
+    $json = json_encode($final);
 
 if(isset($_GET['callback'])){
    echo $_GET['callback'].'('. $json.')';
