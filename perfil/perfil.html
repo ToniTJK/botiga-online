@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--
+    <meta http-equiv="Content-Security-Policy" 
+              content="img-src 'self' 
+              http://localhost
+              https://smx2123test.000webhostapp.com
+              https://smx2123test.000webhostapp.com/HardwareHome
+              https://smx2123test.000webhostapp.com/HardwareHome/imagenes
+              data: gap: https://ssl.gstatic.com 
+              'unsafe-inline' 'unsafe-eval'; media-src *;"> -->
+
+    <title>Perfil</title>
+    <!-- jQuery first -->
+    <script type="text/javascript" src="../assets/js/jquery.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.min.css" />
+    <script type="text/javascript" src="../assets/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Font Awesome 5+ -->
+    <script src="../node_modules/@fortawesome/fontawesome-free/js/all.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./perfil.css"/>
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
+    <style>
+            table{
+                border:1px solid black;
+            }
+            td{
+                border: 1px solid black;
+            }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="cabecera">
+		<div class="toggle">
+
+			<a href="index.php" ><img class="logo" src="../img\Logo_5.png"></a>
+			<a  onclick="abrirMenu()"><i class="fas fa-bars"></i></a>
+		</div>
+		<div class="logo-grande">
+			<a href="index.php" ><img class="logo" src="../img\logo_5.png"></a>
+		</div>
+        <div class="cercadorr" style="float:left; margin-top: 20px;margin-left: 350px"><input type="text" placeholder="Search.."></div>
+		<ul id="menuu" class="carrito-perfil">
+			<li><a href=""><i class="fas fa-user fa-2x"></i> </a></li>
+			<li><a href=""><i class="fas fa-shopping-cart fa-2x"></i></a></li>
+		</ul>
+    </nav>
+    
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Team Members Row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">Profile</h2>
+            </div>
+            <div id="imgProfile" class="col-lg-4 col-sm-6 text-center">
+                <img class="imagen img-circle img-responsive img-center" src="http://placehold.it/200x200" alt="img profile">
+            </div>
+            
+            <!-- Info -->
+            <div id="info" class="col-lg-4 col-sm-6 text-center">
+                
+                <h3>Nombre<small>Apellido</small></h3>
+                <div class="col-md-12">
+                    <p> <i class="far fa-envelope"></i> <strong>Email:</strong> Example@example.com</p>
+                    <p> <i class="fas fa-globe-asia"></i> <strong>Provincia:</strong> Example@example.com</p>
+                    <p> <i class="fas fa-city"></i> <strong>Ciudad:</strong> Example@example.com</p>
+                    <p> <i class="far fa-clock"></i> <strong>Miembro desde:</strong> Example@example.com</p>
+                    
+                </div>
+                <div class="col-md-12">
+                    <a class="btn btn-info">  Editar Perfil <i class="fas fa-user-edit"></i></a>
+                </div>
+            </div>
+
+            <div id="info" class="col-lg-4 col-sm-6 text-center">
+                <h3>Configuración Privada</h3>
+                <div class="col-md-12">
+                    <a class="btn btn-warning" data-target="#modalEditPrivate" data-toggle="modal">  Editar Perfil Privado <i class="fas fa-cog"></i></a>
+                    <span id="alertConfiguracion"></span>
+                </div>
+            </div>
+
+            <!-- modal += '<div class="form-group"><label for="">Nombre:</label><input id="inputNombre" type="text" name="nombre" placeholder="'+data[k].nombre+'" value="'+data[k].nombre+'"></div>';
+                        modal += '<div class="form-group"><label for="">Apellidos:</label><input id="inputApellido" type="text" name="apellidos" placeholder="'+data[k].apellido+'" value="'+data[k].apellido+'"></div>';
+                        modal += '<div class="form-group"><label for="">Email:</label><input id="inputEmail" type="email" name="email" placeholder="'+data[k].email+'" value="'+data[k].email+'"></div>';
+                        modal += '<div class="form-group"><label for="">Provincia:</label><input id="inputProvincia" type="text" name="provincia" placeholder="'+data[k].provincia+'" value="'+data[k].provincia+'"></div>';-->
+        </div>
+
+        
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">Favoritos</h2>
+                <div id="divFavoritos"><p>(No disponible de momento...)</p></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">Historial</h2>
+                <div id="divHistorial"><p>Aun no has comprado ningun Juego.</p></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <hr>
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Fast Keys 2018</p>
+                </div>
+            </div>
+        </footer>
+    </div> <!-- Container -->
+
+    <!-- Modal Editar Datos User -->
+    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+          <div class="modal-content">
+            <div id="modalContainer" class="modal-body"></div>
+            <div id="modalEditFooter" class="modal-footer">
+              <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+              <button id="editUser" type="button" class="btn btn-danger">Guardar Información</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Datos User Private -->
+    <div class="modal fade" id="modalEditPrivate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+          <div class="modal-content">
+            <div id="modalContainerPrivate" class="modal-body">
+                <div class="form-group"><label for="">Tu Contraseña actual:</label><input id="oldPassword" type="password" name="password" placeholder="Tu contraseña actual" ></div>
+                <div class="form-group"><label for="">Tu nueva Contraseña:</label><input id="newPassword" type="password" name="password" placeholder="Tu nueva contraseña" ></div>
+                <div class="form-group"><label for="">Repite la nueva Contraseña:</label><input id="newRepeatPassword" type="password" name="password" placeholder="Confirma tu nueva contraseña" ></div>
+                <span id="alertMssgPassword"></span>
+            </div>
+            <div id="modalEditPrivateFooter" class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                <button id="editPrivateUser" type="button" class="btn btn-danger">Guardar Información</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+
+    <!-- Script -->
+    <script type="text/javascript" src="./perfil.js"></script>
+  </body>
+</html>
